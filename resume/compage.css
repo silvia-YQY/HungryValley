@@ -1,0 +1,183 @@
+body{
+	padding:0;
+	margin:0;
+}
+
+#layout{
+/*	min-width:1280px;*/
+	border:1px solid #000;
+}
+
+/*第一部分*/
+#header{
+	height:800px;
+}
+.nav{
+	display: flex; 
+	justify-content: space-between;
+}
+.nav p{
+	color:#fed136;
+	width: 250px;
+	font-size: 30px;
+
+}
+.nav ul{
+	list-style: none;
+	display: flex;
+	align-items:center;
+
+}
+
+.nav>ul>li>a{
+	color:#fff;
+	margin:auto 20px;
+	text-decoration: none;
+
+}
+#header{
+	background-image: url(http://book.jirengu.com/jirengu-inc/jrg-tehui/homework/%E8%8B%A5%E6%84%9A/16/img/header-bg.jpg);
+	text-align: center;
+	color:#fff;
+}
+.content{
+	margin:150px auto;
+}
+.content>p{
+	font-style:italic;
+	font-size: 40px;
+	line-height: 40px;
+	margin:0;
+	text-transform:Capitalize; 
+}
+
+.content>h1{
+	font-size: 75px;
+	line-height: 75px;
+	margin:25px;
+}
+
+.content>a{
+	display: inline-block;
+	background: #fed136;
+	padding:20px 40px;
+	border-radius:7px;
+	text-decoration: none;
+	color:#fff;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top:80px;
+}
+/*第一部分*/
+/*第二部分*/
+#services{
+	padding:100px 0;
+}
+#services h1{
+	font-size: 40px;
+	text-align: center;
+}
+#services>p{
+	font-size: 16px;
+	color:#777;
+	font-style:italic;
+	text-align: center;
+}
+#services ul{
+	list-style: none;
+	display: flex;
+	margin:80px 0;
+	padding:0 50px ;
+}
+#services ul li{
+	margin:0 30px;
+}
+#services ul li>p:nth-child(1){
+	font-size: 100px;
+	width: 100px;
+	height: 100px;
+	background:#fed136;
+	border-radius: 50px;
+	margin:20px auto;
+}
+#services ul li>p{
+	text-align: center;
+}
+#services ul li>p:nth-child(3){
+	color:#777;
+	font-size: 14px;
+}
+#services ul li>p:nth-child(2){
+	font-weight: bold;
+	font-size: 18px;
+	margin-top:30px;
+}
+/*第二部分*/
+/*第三部分*/
+#portfolio{
+	background:#f7f7f7;
+	padding:100px 0;
+	text-align: center;
+}
+#portfolio h1{
+	font-size: 40px;
+}
+#portfolio>p{
+	color:#777;
+	font-size: 16px;
+	font-style:italic;
+}
+#portfolio ul{
+	list-style: none;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+	padding:0 50px;
+	margin-top:50px;
+}
+#portfolio ul li{
+	margin:30px 0px;
+	background:#fff;
+}
+#portfolio ul li img{
+	width: 360px;
+	height: 260px;
+}
+#portfolio ul li>p:nth-child(2){
+	font-weight: bold;
+	font-size: 18px;
+	margin-bottom:0;
+}
+#portfolio ul li>p:nth-child(3){
+	font-size: 16px;
+	font-style:italic;
+	color:#777;
+	margin-top:0;
+	margin-bottom:25px;
+}
+
+
+/*第三部分*/
+
+/*第四部分*/
+#about{
+	padding:100px 0;
+	text-align: center;
+}
+#about ul{
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+#about ul>li>img{
+	width: 170px;
+	height: 170px;
+	border:7px solid #f1f1f1;
+	border-radius:50%; 
+}
+.timeline{
+	max-width:1140px;
+	margin:0 auto;
+}
+
+/*第四部分*/
