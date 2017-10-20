@@ -4,11 +4,11 @@ body{
 }
 @font-face {
   font-family: 'iconfont';  /* project id 445154 */
-  src: url('//at.alicdn.com/t/font_445154_9evie4nktcqjv2t9.eot');
-  src: url('//at.alicdn.com/t/font_445154_9evie4nktcqjv2t9.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_445154_9evie4nktcqjv2t9.woff') format('woff'),
-  url('//at.alicdn.com/t/font_445154_9evie4nktcqjv2t9.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_445154_9evie4nktcqjv2t9.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.eot');
+  src: url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.woff') format('woff'),
+  url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.svg#iconfont') format('svg');
 }
 .person {
   font-family:"iconfont" !important;
@@ -107,13 +107,23 @@ body{
 #services ul li{
 	margin:0 30px;
 }
-#services ul li>p:nth-child(1){
-	font-size: 100px;
-	width: 100px;
-	height: 100px;
-	background:#fed136;
-	border-radius: 50px;
-	margin:20px auto;
+#services ul li>div{
+    position:relative;
+    font-size: 100px;
+	width: 150px;
+	height: 150px;
+    background:#fed136;
+	border-radius: 75px;
+    padding:auto;
+    margin:0 auto;
+}
+#services ul li>div>p{
+    position:relative;
+    top:25px;
+}
+#services ul li>div>p:nth-child(1){
+    text-align:center;
+	margin:30px auto;
 }
 #services ul li>p{
 	text-align: center;
@@ -127,6 +137,7 @@ body{
 	font-size: 18px;
 	margin-top:30px;
 }
+
 /*第二部分*/
 /*第三部分*/
 #portfolio{
@@ -194,6 +205,8 @@ body{
 }
 #portfolio ul>li>div:hover p{
 	opacity: 1;
+    top:60px;
+    font-size:80px;
 }
 #portfolio ul>li>div>img:hover{
 	z-index:1;
@@ -333,6 +346,15 @@ body{
 	color:#777;
 	margin:50px auto;
 }
+#team .person>li>ul>li{
+    margin-top:20px;
+}
+#team .person>li>ul>li>a{
+    text-decoration: none;
+    color:#000;
+    font-size:40px;
+  
+}
 /*第五部分*/
 /*第六部分	*/
 #brand{
@@ -431,4 +453,10 @@ footer>div>a{
 	color:#fed136;
 	font-size: 14px;
 	margin:0 20px;
+}
+footer>ul>li>a{
+    color:#000;
+    font-size:40px;
+    margin:auto 20px;
+    text-decoration: none;
 }
