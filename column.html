@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<style>
+		li{
+			padding:0 25px;
+		}
+		li{
+			height: 50px;
+			line-height: 50px;
+			width:300px;
+			list-style: none;
+		}
+		a{
+
+			float:right;
+		}
+		#dad>li{
+			position: relative;
+			cursor: pointer;
+			background-color: #33CC99;
+			border:1px solid ;
+		}
+		#dad>li{
+			border-bottom: none;
+		}
+		#dad>li:last-child{
+			border-bottom:1px solid ;
+		}
+		#dad>li ul{
+			position: absolute;
+			border:1px solid #ccc;
+			left:351px;
+			top:0;
+			padding: 0;
+			width: 250px;
+			display: none;
+		}
+		/*设置子菜单开关class*/
+		#dad>li ul.active{
+			display: flex;
+			flex-wrap:wrap;
+		}
+		#dad>li ul>li{
+			width: 75px;
+		}
+
+	</style>
+</head>
+<body>
+	<ul id="dad">
+		<li>women<a>></a>
+			<ul>
+				<li>shoes</li>
+				<li>clothes</li>
+				<li>clock</li>
+				<li>pants</li>
+			</ul>
+		</li>
+		<li>man<a>></a>
+			<ul >
+				<li>shoes</li>
+				<li>clothes</li>
+				<li>clock</li>
+				<li>pants</li>
+			</ul>
+		</li>
+		<li>toy<a>></a>
+			<ul >
+				<li>手办</li>
+				<li>游戏机</li>
+				<li>乐高</li>
+				<li>GTF</li>
+				<li>游戏机</li>
+			</ul>
+		</li>
+		<li>food<a>></a>
+			<ul>
+				<li>鸡</li>
+				<li>鹅</li>
+				<li>鱼</li>
+				<li>鸭</li>
+			</ul>
+		</li>
+		<li>car<a>></a>
+			<ul>
+				<li>保时捷</li>
+				<li>兰博基尼</li>
+				<li>奔驰</li>
+				<li>宝马</li>
+				<li>奥迪</li>
+			</ul>
+		</li>
+		<li>learning<a>></a>
+			<ul>
+				<li>人工智能</li>
+				<li>前端</li>
+				<li>后端</li>
+				<li>数据库</li>
+			</ul>
+		</li>
+	</ul>
+	<script>
+	$("#dad>li").on("mouseenter",function(){
+		var $this= $(this)
+		$this.children("#dad>li ul").addClass("active")
+	})
+	$("#dad>li").on("mouseleave",function(){
+		var $this= $(this)
+		$this.children("#dad>li ul").removeClass("active")
+	})
+
+	</script>
+</body>
+</html>
