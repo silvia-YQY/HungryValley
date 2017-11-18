@@ -1,0 +1,135 @@
+<!DOCTYPE>
+<html>
+<head>		
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="movies.css" type=text/css>
+	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+<body>
+		<ul class="column">
+			<li class="act">美剧</li>
+			<li>日剧</li>
+			<li>电影</li>
+		</ul>
+		<ul class="items">
+			<li class="item active">				
+				<ul>					
+					<li>
+						<div class="cover"><a href="#">点击购票</a></div>
+						<img src="http://img.717vr.com/2017/05/03/14-1F5031632200-50.jpg" alt="">
+						<p href="">硅谷第四季</p>
+					</li>
+					<li>
+						<div class="cover"><a href="#">点击购票</a></div>
+						<img src="http://image11.m1905.cn/uploadfile/2015/0109/20150109020144205742.jpg" alt="">
+						<p>权力游戏</p>
+					</li>
+
+				</ul>
+				<a href="#" class="addmore">加载更多</a>				
+			</li>
+			<li class="item"> 
+				<ul>					
+					<li>
+						<div class="cover"><a href="#">点击购票</a></div>
+						<img src="https://gss0.bdstatic.com/94o3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike80%2C5%2C5%2C80%2C26/sign=ec118b111a950a7b613846966bb809bc/e61190ef76c6a7ef6e027801fafaaf51f3de66f5.jpg" alt="">
+						<p href="">家族的形式</p>
+					</li>
+					<li>
+						<div class="cover"><a href="#">点击购票</a></div>
+						<img src="https://gss2.bdstatic.com/9fo3dSag_xI4khGkpoWK1HF6hhy/baike/c0%3Dbaike116%2C5%2C5%2C116%2C38/sign=f190017c16ce36d3b6098b625b9a51e2/30adcbef76094b36068ae64ba0cc7cd98d109d78.jpg" alt="">
+						<p>CODE BLUE</p>
+					</li>
+				</ul>
+				<a href="#" class="addmore">加载更多</a>		
+			</li>
+			<li class="item">
+				<ul>					
+					<li>
+						<div class="cover"><a href="#">点击购票</a></div>
+						<img src="http://img2.mtime.cn/up/1846/2085846/89F0C0EF-1084-419C-BFDB-08B2DE219C56_o.jpg" alt="">
+						<p href="">当幸福来敲门</p>
+					</li>
+					<li>
+						<div class="cover"><a href="#">点击购票</a></div>
+						<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1510997955&di=702254621213661af662b27aa7ef6fad&src=http://img5.mtime.cn/mg/2017/03/29/110434.85474913.jpg" alt="">
+						<p>看不见的客人</p>
+					</li>
+				</ul>	
+				<a href="#" class="addmore">加载更多</a>					
+			</li>
+		</ul>
+
+
+	<script>
+		// 菜单栏选中颜色变幻
+		$(".column>li").on("click",function(){
+			var $this = $(this)
+			var index = $this.index()
+			$this.addClass("act")
+			$this.siblings().removeClass("act")
+			$(".items>li").eq(index).addClass("active").siblings().removeClass("active")
+		})
+
+		// 项目购买
+		$(".items>li>ul>li").on("mouseenter",function(){
+			var $this = $(this)
+			$this.children("div").addClass("coveractive")
+		})
+
+		$(".items>li>ul>li").on("mouseleave",function(){
+			var $this = $(this)
+			$this.children("div").removeClass("coveractive")
+		})
+
+		$(".addmore").on("click",function(){
+			var $this = $(this)
+
+			var xhr = new XMLHttpRequest()
+			xhr.open("get","1.json")
+			xhr.send()
+			xhr.addEventListener("load",function(){
+				if(xhr.status >= 200 && xhr.status<300 || xhr.status === 304){
+
+					var arr = JSON.parse(xhr.responseText)
+
+
+					arr.forEach(function(ele){
+						var div = $("<div>",{"class":"cover"})
+						var a = $("<a>点击购票</a>")
+						var img = $("<img>")
+						var p = $("<p>")
+						var li = $("<li>")
+
+						img.attr("src",ele[0])
+						p.text(ele[1])
+						div.append(a)
+						li.append(div,img,p)
+						
+						$this.parent(".item").find("ul").append(li)
+						$this.parent(".item").find("li").addClass("active")
+						console.log($this.parent(".item").html())
+
+					})
+
+
+				}
+				$(".item>ul>li").on("mouseenter",function(){
+					var $this = $(this)
+					$this.children("div").addClass("coveractive")
+				})
+
+				$(".item>ul>li").on("mouseleave",function(){
+					var $this = $(this)
+					$this.children("div").removeClass("coveractive")
+				})
+
+			})
+			
+		})
+
+	</script>
+
+</body>
+
+</html>

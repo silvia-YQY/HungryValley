@@ -1,0 +1,85 @@
+*{
+	padding: 0;
+	margin: 0;
+}
+li{
+	list-style: none;
+}
+a{
+	text-decoration: none;
+}
+/*栏目*/
+.column{
+	display: flex;
+	margin: 30px;
+	width: 500px;
+}
+.column>li{
+	border: 1px solid ;
+	padding: 10px 20px;
+	cursor: pointer;
+}
+.act{
+	background: #ccc;
+}
+
+/*影视*/
+.items ul{
+	display: flex;
+	flex-wrap:wrap;
+	justify-content:space-around;
+	margin:20px;
+	border:1px solid #ccc;
+}
+.items li{
+	position: relative;
+	margin:30px;
+/*	border:1px solid red;*/
+}
+.items img{
+	width: 250px;
+	height:350px;
+}
+.items p{
+	margin:20px auto;
+	text-align: center;
+}
+.items>li>ul>li{
+	border: 1px solid #ccc;
+}
+.items .cover{
+	display: none;
+	position: absolute;
+	width: 250px;
+	height:411px;
+	background: rgba(0,0,0,0.4)
+}
+.items .coveractive{
+	display: block;
+}
+.items .cover a{
+	position: relative;
+	top:50%;
+	left:50%;
+	margin-left:-45px;
+	height: 20px;
+	background: #fff;
+	color:#000;
+	padding: 5px 10px;
+	border: 1px solid red;
+	border-radius: 8px;
+}
+.items>li {
+	display: none;
+}
+.items>li.active{
+	display: block;
+}
+.items a{
+	height: 20px;
+	background: #fff;
+	color:#000;
+	padding: 5px 10px;
+	border: 1px solid red;
+	border-radius: 8px;
+}
