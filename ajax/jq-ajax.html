@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+	<meta charset="utf-8">
+	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 </head>
 <style>
 	*{
@@ -36,37 +37,41 @@
 </style>
 <body>
 	<ul id = "ct">
-		<li>content1</li>
-		<li>content2</li>
+<!-- 		<li>content1</li>
+		<li>content2</li> -->
 	</ul>
 	<a href="#" id = "btn">load more</a>
 </body>
 <script>
-	function $(e){
-		return document.querySelector(e)
-	}
-	var i = 1
-	console.log($("#btnk"))
-	$("#btn").addEventListener("click",function(){
-		var xhr = new XMLHttpRequest()
-		xhr.open("GET","test.json",true)
-		xhr.send()
-		xhr.addEventListener("load",function(){
-			if(xhr.status = 200){
-				
-				var arr = JSON.parse(xhr.responseText)
-				arr.forEach(function(a){
-					var li = document.createElement("li")
-					li.innerText = a + i
-					i++
-					$("#ct").appendChild(li)
-				})
+	// $("#btn").on("click",function(){
+	// 	$.get("test.json",function(res){
+	// 		console.log(res)
+	// 	})
+	// })
+	// 
+ 		i = 0
+		$("#btn").on("click",function(){
+			$.get("test.json").done(function(ret){
+				appendHtml(ret)
+			})
+		
+		function appendHtml(news){
+			var html = ""
+			
+			$.each(news,function(){
+				html = "<li>content"+ i + "</li>"
+
+				i++
+				html += "<li>content"+ i +"</li>"
+
+			})
+			$("#ct").append(html)
+			
 			}
 		})
-	})
-	
 
 
 
 </script>
+</html>
 </html>
