@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
+  <title> Carousel figure（fade）</title>
+  <style>
+    *{
+      margin:0;
+      padding: 0;
+    }
+    .carousel{
+      position: relative;
+      margin: 50px auto;
+      width: 500px;
+      height: 400px;
+      overflow: hidden;
+    }
+    .carousel .img-ct{
+      position: absolute;
+      font-size: 0;
+    }
+    .carousel .img-ct>li{
+      display: inline-block;
+      list-style: none;
+    }
+    .carousel img{
+      width: 500px;
+      height: 400px;
+    }
+    .carousel>a{
+      position: absolute;
+      top:50%;
+      margin-top:-25px;
+      width: 50px;
+      height: 50px;
+      border-radius:50%;
+      border: 1px solid #fff;
+      color:#fff;
+      z-index: 1;
+      line-height: 50px;
+      text-align: center;
+      font-size: 30px;
+      text-decoration: none;
+    }
+    .carousel>a:hover{
+      opacity: 0.7;
+    }
+    .carousel .pre{
+      left: 20px;
+    }
+    .carousel .next{
+      right: 20px;
+    }
+    .link{
+      position: absolute;
+      width:100%;
+      bottom: 20px;
+      font-size: 0;
+      text-align: center;
+    }
+    .link>li{   
+      display: inline-block;
+      width: 50px;
+      height: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    .active{
+      background: #ccc;
+    }
+
+  </style>
+</head>
+<body>
+<div class="carousel">
+  <ul class="img-ct">
+    <li><a href="#"><img src="https://wx3.sinaimg.cn/mw690/6364aedfgy1flpbz56l57j20ze0qoqcn.jpg"></a></li>
+    <li><a href="#"><img src="https://wx2.sinaimg.cn/mw690/6364aedfgy1fljxd0s44vj20zk0qodwr.jpg"></a></li>
+    <li><a href="#"><img src="https://wx4.sinaimg.cn/mw690/6364aedfgy1flqi2s4ckwj20y50qoayf.jpg"></a></li>
+    <li><a href="#"><img src="https://wx1.sinaimg.cn/mw690/6364aedfgy1flqrllt8mmj211s0qoww8.jpg"></a></li>
+  </ul>
+
+  <a href="#" class="pre"><</a>
+  <a href="#" class="next">></a>
+  <ul class="link">
+    <li class = "active"></li>
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+    <script>
+      var $link = $(".link>li")
+      var $imgCt = $(".img-ct")
+      var $img = $(".img-ct>li")
+      var imgWidth = $img.width()  //500
+      var imgCount = $img.length   //4
+      var $pre = $(".pre")
+      var $next = $(".next")
+      var pageIndex = 0
+      var clock = false
+
+      $imgCt.css({width:(imgCount + 2) * imgWidth})
+      $imgCt.append($img.first().clone())
+      $imgCt.prepend($img.last().clone())
+      $imgCt.css({left:-imgWidth})
+
+      $pre.click(function(){
+        prePlay(1)
+      })
+      $next.click(function(){
+        nextPlay(1)
+      })
+
+      $link.click(function(){
+        var index = $(this).index()
+        if(index > pageIndex){
+          nextPlay(index - pageIndex)
+        }else if(index < pageIndex){
+          prePlay(pageIndex - index)
+        }
+        console.log("index:" + index)
+      })
+
+      function nextPlay(len){
+        console.log(len)
+        if(clock) return;
+        clock = true
+        $imgCt.fadeOut({
+          left:"-=" + imgWidth*len
+        },function(){
+          pageIndex += len
+          console.log("pageIndex:" + pageIndex)
+          if(pageIndex == imgCount){
+            pageIndex = 0
+            $imgCt.css({left:-imgWidth})
+          }
+           clock = false
+           indexPlay()
+        })       
+      }
+
+      function prePlay(len){
+        if(clock) return;
+        clock = true
+        $imgCt.fadeOut({
+          left:"+=" + imgWidth *len
+        },function(){
+          pageIndex -= len
+          console.log(pageIndex)
+          if(pageIndex < 0){
+            pageIndex = 4
+            $imgCt.css({left:-imgCount * imgWidth})
+          }
+          clock = false
+          indexPlay()
+        })
+      }
+
+      function indexPlay(){
+         $link.removeClass("active")
+              .eq(pageIndex)
+              .addClass("active")
+              console.log("index:" + pageIndex)
+      }
+
+
+
+    </script>
+  
+</body>
+</html>
