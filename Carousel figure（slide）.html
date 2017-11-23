@@ -107,6 +107,7 @@
       $imgCt.append($img.first().clone())
       $imgCt.prepend($img.last().clone())
       $imgCt.css({left:-imgWidth})
+      autoPlay()
 
       $pre.click(function(){
         prePlay(1)
@@ -165,6 +166,13 @@
               .eq(pageIndex)
               .addClass("active")
               console.log("index:" + pageIndex)
+      }
+
+      function autoPlay(){
+        clock = setInterval(function(){
+          clock = false
+          nextPlay(1)
+        },2000)
       }
 
 

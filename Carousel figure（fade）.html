@@ -14,14 +14,14 @@
       margin: 50px auto;
       width: 500px;
       height: 400px;
-      overflow: hidden;
     }
     .carousel .img-ct{
       position: absolute;
+      width:2000px;
       font-size: 0;
     }
     .carousel .img-ct>li{
-      display: inline-block;
+      position: absolute;
       list-style: none;
     }
     .carousel img{
@@ -37,7 +37,7 @@
       border-radius:50%;
       border: 1px solid #fff;
       color:#fff;
-      z-index: 1;
+      z-index: 10;
       line-height: 50px;
       text-align: center;
       font-size: 30px;
@@ -57,6 +57,7 @@
       width:100%;
       bottom: 20px;
       font-size: 0;
+      z-index: 10;
       text-align: center;
     }
     .link>li{   
@@ -77,10 +78,10 @@
 <body>
 <div class="carousel">
   <ul class="img-ct">
-    <li><a href="#"><img src="https://wx3.sinaimg.cn/mw690/6364aedfgy1flpbz56l57j20ze0qoqcn.jpg"></a></li>
-    <li><a href="#"><img src="https://wx2.sinaimg.cn/mw690/6364aedfgy1fljxd0s44vj20zk0qodwr.jpg"></a></li>
-    <li><a href="#"><img src="https://wx4.sinaimg.cn/mw690/6364aedfgy1flqi2s4ckwj20y50qoayf.jpg"></a></li>
-    <li><a href="#"><img src="https://wx1.sinaimg.cn/mw690/6364aedfgy1flqrllt8mmj211s0qoww8.jpg"></a></li>
+    <li style="z-index: 4;"><a href="#"><img src="https://wx3.sinaimg.cn/mw690/6364aedfgy1flpbz56l57j20ze0qoqcn.jpg"></a></li>
+    <li style="z-index: 3;"><a href="#"><img src="https://wx2.sinaimg.cn/mw690/6364aedfgy1fljxd0s44vj20zk0qodwr.jpg"></a></li>
+    <li style="z-index: 2;"><a href="#"><img src="https://wx4.sinaimg.cn/mw690/6364aedfgy1flqi2s4ckwj20y50qoayf.jpg"></a></li>
+    <li style="z-index: 1;"><a href="#"><img src="https://wx1.sinaimg.cn/mw690/6364aedfgy1flqrllt8mmj211s0qoww8.jpg"></a></li>
   </ul>
 
   <a href="#" class="pre"><</a>
@@ -101,73 +102,83 @@
       var $pre = $(".pre")
       var $next = $(".next")
       var pageIndex = 0
-      var clock = false
+      var lock = false
 
-      $imgCt.css({width:(imgCount + 2) * imgWidth})
-      $imgCt.append($img.first().clone())
-      $imgCt.prepend($img.last().clone())
-      $imgCt.css({left:-imgWidth})
+      $img.fadeOut()
+      $img.eq(0).fadeIn()
+      autoPlay()
+
+      $next.click(function(){
+      	if(lock) return;
+      	nextPlay()
+      })
 
       $pre.click(function(){
-        prePlay(1)
-      })
-      $next.click(function(){
-        nextPlay(1)
+      	if(lock) return;
+      	prePlay()
       })
 
       $link.click(function(){
-        var index = $(this).index()
-        if(index > pageIndex){
-          nextPlay(index - pageIndex)
-        }else if(index < pageIndex){
-          prePlay(pageIndex - index)
-        }
-        console.log("index:" + index)
+      	var $this = $(this)
+      	var index = $this.index()
+      	indexPlay(index)
       })
 
-      function nextPlay(len){
-        console.log(len)
-        if(clock) return;
-        clock = true
-        $imgCt.fadeOut({
-          left:"-=" + imgWidth*len
-        },function(){
-          pageIndex += len
-          console.log("pageIndex:" + pageIndex)
-          if(pageIndex == imgCount){
-            pageIndex = 0
-            $imgCt.css({left:-imgWidth})
-          }
-           clock = false
-           indexPlay()
-        })       
+      function nextPlay(){
+      	lock = true
+      	$img.eq(pageIndex).fadeOut()
+      	pageIndex ++
+      	if( pageIndex < imgCount){
+      		$img.eq(pageIndex).fadeIn()
+      	}else{
+      		$img.eq(0).fadeIn()
+      		pageIndex = 0
+      	}
+      	indexClass(pageIndex)
+      	lock = false
       }
 
-      function prePlay(len){
-        if(clock) return;
-        clock = true
-        $imgCt.fadeOut({
-          left:"+=" + imgWidth *len
-        },function(){
-          pageIndex -= len
-          console.log(pageIndex)
-          if(pageIndex < 0){
-            pageIndex = 4
-            $imgCt.css({left:-imgCount * imgWidth})
-          }
-          clock = false
-          indexPlay()
-        })
+      function prePlay(){
+      	lock = true
+      	$img.eq(pageIndex).fadeOut()
+      	pageIndex --
+      	if( pageIndex >= 0){
+      		$img.eq(pageIndex).fadeIn()
+      		console.log(pageIndex)
+      	}else{
+      		$img.eq(3).fadeIn()
+      		pageIndex = 3
+      		console.log(pageIndex)
+      	}
+      	indexClass(pageIndex)
+      	stopAutoPlay()
+      	lock = false
       }
 
-      function indexPlay(){
-         $link.removeClass("active")
-              .eq(pageIndex)
-              .addClass("active")
-              console.log("index:" + pageIndex)
+      function indexPlay(index){
+      	$img.fadeOut()
+      	$img.eq(index).fadeIn()
+      	indexClass(index)
       }
 
+      function indexClass(index){
+      	$link.siblings()
+      		 .removeClass("active")
+      	$link.eq(index).addClass("active")
+      	console.log(index)
+      }
 
+      function autoPlay(){
+      	clock = setInterval(function(){
+      		nextPlay()
+      	},2000)
+      }
+
+      function stopAutoPlay(){
+      	 clearInterval(clock);
+      }
+
+      
 
     </script>
   
