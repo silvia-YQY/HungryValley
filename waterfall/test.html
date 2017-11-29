@@ -4,6 +4,15 @@
 	<meta charset="utf-8">
 	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 	<style>
+		div{
+			margin:20px auto;
+			text-align: center;
+		}
+		input{
+			height: 25px;
+			border-radius: 5px;
+			padding: 5px;
+		}
 		ul{
 			position: relative;
 			transition: all 1s;
@@ -14,6 +23,7 @@
 			border: 1px solid #ccc;
 			padding: 20px;
 			width: 250px;
+			float:left;
 		}
 		li>a>img{
 			width: 250px;
@@ -25,10 +35,19 @@
 		.unvisiable{
 			opacity:0;
 		}
+		.clearfix{
+			content:"";
+			display: block;
+			clear:both;
+		}
 	</style>
 </head>
 <body>
-	<ul>
+	<div>
+		<input class="ipt" type="text" placeholder="input image keyword">
+	</div>
+	
+	<ul class="ct clearfix" >
 		<li>
 			<a href="#">
 				<img src="http://n.sinaimg.cn//tech//transform//20171123//CCjL-fypathz5216829.jpg" alt="">
@@ -37,62 +56,8 @@
 			<p>tingshuobushiangdadger</p>
 		</li>
 	</ul>
+
 	<div class="unvisiable">你当我透明</div>
 
-	<script>
-	
-	var perPageCount = 10
-	var curPage = 1
-
-	loadInfo()
-
-	function loadInfo(callback){
-		$.ajax({
-			url:"http://platform.sina.com.cn/slide/album_tech",
-			dataType:"jsonp",
-			jsonp:"jsoncallback",
-			data:{
-				app_key:"1271687855",
-				num:perPageCount,
-				page:curPage
-			}
-		}).done(function(ret){
-			if(ret && ret.status && ret.status.code ==="0"){
-				callback(ret.data)
-				curPage++
-			}else{
-				console.log("error data")
-			}
-		})
-	}
-
-	loadInfo(function(infoList){
-		console.log(infoList)
-		//var nodes = getNodes()
-	})
-
-	function placeImg(Info){
-		
-		
-	}
-
-
-	function getNodes(Info){
-		console.log(ret.data)
-
-		$(Info).each(function(){
-			console.log($(this))
-			var $this = $(this)
-			var li = "<li>"
-				li += "<a href=\""+ $this.url + "\">"
-				li += "<img src="+ $this.img_url + "></a>"
-				li += "<h2>"+ $this.short_name + "</h2><p>"+ $this.short_intro+"</p></li>"
-				placeImg($(li))
-		})
-	}
-
-
-
-	</script>
 </body>
 </html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+	<style>
+		.input{
+			margin:20px auto;
+			text-align: center;
+		}
+		input{
+			height: 25px;
+			border-radius: 5px;
+			padding: 5px;
+		}
+		.unvisiable{
+			opacity:0;
+		}
+		.clearfix{
+			content:"";
+			display: block;
+			clear:both;
+		}
+		.ct{
+			margin:auto;
+			width: 1280px;
+			border:1px solid;
+		}
+	</style>
+</head>
+<body>
+	<div class="input">
+		<input class="ipt" type="text" placeholder="input image keyword">
+	</div>
+	
+	<div class = "ct clearfix">
+
+	</div>
+
+	<div class="unvisiable">你当我透明</div>
+	<script>
+
+	var mainNode = $(".ct")
+	var mainNodeWidth = mainNode.width()
+	console.log(mainNodeWidth)
+	var rowList = []
+	var rowTotalWidth = 0
+	var baseHeight = 200
+
+	getData()
+		.then(setImg)
+		.catch(function(err){
+			console.log(err)
+		})
+
+	function setImg(res){
+		res.hits.forEach(function(imgInfo){
+			var imgUrl = imgInfo.webformatURL
+			var imgOriWidth = imgInfo.webformatWidth
+			var imgOriHeight = imgInfo.webformatHeight
+			imgInfo.newHeight = baseHeight
+			imgInfo.newWidth = baseHeight*(imgOriWidth/imgOriHeight)
+			console.log(imgInfo)
+
+		})
+	}
+
+
+	function getData(){
+		return new Promise(function(resolve,reject){
+			$(".ipt").change(function(){
+				var keyword = $(".ipt").val()
+				var data = {
+					key:"7186209-05e5f68629a2c2eac9db960fc",
+					q:keyword,
+					image_type:"photo",
+					per_page:20
+				}	
+
+				var url = "https://pixabay.com/api/?"
+
+				for(var key in data){
+					url += key + "=" + data[key] + "&"
+				}
+
+				$.ajax({
+					url:url,
+					type:"get",
+					dataType:"json",
+					success:function(res){
+						resolve(res)
+					},
+					error:function(){
+						reject("ajax error")
+					}
+
+				})
+			})
+		})
+	}
+
+
+
+
+/*
+	function getData(callback){
+
+		$(".ipt").change(function(){
+			var keyword = $(".ipt").val()
+			var data = {
+				key:"7186209-05e5f68629a2c2eac9db960fc",
+				q:keyword,
+				image_type:"photo",
+				per_page:20
+			}	
+
+			var url = "https://pixabay.com/api/?"
+
+			for(var key in data){
+				url += key + "=" + data[key] + "&"
+			}
+
+			$.ajax({
+				url:url,
+				type:"get",
+				dataType:"json",
+				success:function(res){
+					callback(res)
+				}
+			})
+		})
+
+	}
+*/
+	</script>
+</body>
+</html>
