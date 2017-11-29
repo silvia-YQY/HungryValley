@@ -41,10 +41,10 @@
 	<script>
 
 	var mainNode = $(".ct")
-	var mainNodeWidth = mainNode.width()
+	var mainNodeWidth = mainNode.width()   //容器宽度
 	console.log(mainNodeWidth)
-	var rowList = []
-	var rowTotalWidth = 0
+	var rowList = []        // 每一列能放入的的图片
+	var rowTotalWidth = 0   //每一列的总宽度
 	var baseHeight = 200
 
 	getData()
@@ -56,10 +56,18 @@
 	function setImg(res){
 		res.hits.forEach(function(imgInfo){
 			var imgUrl = imgInfo.webformatURL
-			var imgOriWidth = imgInfo.webformatWidth
-			var imgOriHeight = imgInfo.webformatHeight
+
 			imgInfo.newHeight = baseHeight
-			imgInfo.newWidth = baseHeight*(imgOriWidth/imgOriHeight)
+			imgInfo.newWidth = baseHeight*(imgInfo.webformatWidth/imgInfo.webformatHeight)
+
+			if(imgInfo.newWidth + rowTotalWidth > mainNode){
+				layout(rowList)
+				rowList = [imgInfo]
+				rowTotalWidth = imgInfo.newWidth
+			}else{
+				rowList.push(imgInfo)
+				rowTotalWidth += imgInfo.newWidth
+			}
 			console.log(imgInfo)
 
 		})
