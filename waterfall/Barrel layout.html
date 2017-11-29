@@ -23,8 +23,12 @@
 		}
 		.ct{
 			margin:auto;
-			width: 1280px;
+			width: 1480px;
 			border:1px solid;
+			float: left;
+		}
+		.ct>.img{
+			margin: 10px;
 		}
 	</style>
 </head>
@@ -40,69 +44,90 @@
 	<div class="unvisiable">你当我透明</div>
 	<script>
 
-	var mainNode = $(".ct")
-	var mainNodeWidth = mainNode.width()   //容器宽度
+	var $mainNode = $(".ct")
+	var mainNodeWidth = $mainNode.width()   //容器宽度
 	console.log(mainNodeWidth)
 	var rowList = []        // 每一列能放入的的图片
 	var rowTotalWidth = 0   //每一列的总宽度
 	var baseHeight = 200
 
-	getData()
-		.then(setImg)
-		.catch(function(err){
-			console.log(err)
-		})
+	$(".ipt").change(function(){
+		getData()
+			.then(setImg)
+			.catch(function(err){
+				console.log(err)
+			})
+
+	})
 
 	function setImg(res){
+
 		res.hits.forEach(function(imgInfo){
 			var imgUrl = imgInfo.webformatURL
 
 			imgInfo.newHeight = baseHeight
 			imgInfo.newWidth = baseHeight*(imgInfo.webformatWidth/imgInfo.webformatHeight)
 
-			if(imgInfo.newWidth + rowTotalWidth > mainNode){
-				layout(rowList)
+			if(imgInfo.newWidth + rowTotalWidth > mainNodeWidth){
+				layout(rowList,rowTotalWidth)
 				rowList = [imgInfo]
 				rowTotalWidth = imgInfo.newWidth
 			}else{
 				rowList.push(imgInfo)
 				rowTotalWidth += imgInfo.newWidth
 			}
-			console.log(imgInfo)
-
 		})
+
+		function layout(list,rowTotalWidth){
+
+			list.forEach(function(imgInfo){
+				var $div = $("<div class='img'></div>")
+				var $img = $("<img>")
+				$img.attr("src",imgInfo.webformatURL)
+				$div.append($img)
+				var newHeight = (mainNodeWidth/rowTotalWidth)*baseHeight
+				$div.css({
+					height:newHeight,
+					width:(imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight
+				})
+				console.log("height" + (mainNodeWidth/rowTotalWidth)*baseHeight)
+
+				$mainNode.append($div)
+			})
+		}
 	}
+
+
 
 
 	function getData(){
 		return new Promise(function(resolve,reject){
-			$(".ipt").change(function(){
-				var keyword = $(".ipt").val()
-				var data = {
-					key:"7186209-05e5f68629a2c2eac9db960fc",
-					q:keyword,
-					image_type:"photo",
-					per_page:20
-				}	
 
-				var url = "https://pixabay.com/api/?"
+			var keyword = $(".ipt").val()
+			var data = {
+				key:"7186209-05e5f68629a2c2eac9db960fc",
+				q:keyword,
+				image_type:"photo",
+				per_page:50
+			}	
 
-				for(var key in data){
-					url += key + "=" + data[key] + "&"
+			var url = "https://pixabay.com/api/?"
+
+			for(var key in data){
+				url += key + "=" + data[key] + "&"
+			}
+
+			$.ajax({
+				url:url,
+				type:"get",
+				dataType:"json",
+				success:function(res){
+					resolve(res)
+				},
+				error:function(){
+					reject("ajax error")
 				}
 
-				$.ajax({
-					url:url,
-					type:"get",
-					dataType:"json",
-					success:function(res){
-						resolve(res)
-					},
-					error:function(){
-						reject("ajax error")
-					}
-
-				})
 			})
 		})
 	}
