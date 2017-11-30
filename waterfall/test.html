@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 	<meta charset="utf-8">
-	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 	<style>
 		div{
 			margin:20px auto;
@@ -58,6 +58,15 @@
 	</ul>
 
 	<div class="unvisiable">你当我透明</div>
+	<script>
+	var xhr = new XMLHttpRequest()
+	xhr.open("get","http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4")
+	xhr.send()
+	xhr.onload(){
+
+	}
+
+	</script>
 
 </body>
 </html>
