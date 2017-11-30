@@ -29,7 +29,7 @@
 		  	margin-bottom:10px;
 		}
 		.img-row img{
-			margin:10px 10px;
+			margin:0 10px;
 			border-radius:10px;
 		}
 
@@ -77,7 +77,7 @@
 				rowTotalWidth = imgInfo.newWidth
 			}else{
 				rowList.push(imgInfo)
-				rowTotalWidth += imgInfo.newWidth
+				rowTotalWidth += imgInfo.newWidth +20
 			}
 		})	
 	}
@@ -100,7 +100,6 @@
 			})
 			console.log( newHeight , (imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight)
 		})
-
 		
 		$mainNode.append($divrow)
 		
