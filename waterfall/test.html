@@ -4,66 +4,171 @@
 	<script src="//code.jquery.com/jquery-2.1.1.min.js"></script>
 	<meta charset="utf-8">
 	<style>
-		div{
-			margin:20px auto;
-			text-align: center;
+		*{
+			padding: 0;
+			margin:0;
 		}
-		input{
-			height: 25px;
-			border-radius: 5px;
-			padding: 5px;
-		}
-		ul{
-			position: relative;
-			transition: all 1s;
-		}
-		li{
+		.item{
 			list-style: none;
 			position: absolute;
 			border: 1px solid #ccc;
 			padding: 20px;
-			width: 250px;
+			width:310px;
 			float:left;
 		}
 		li>a>img{
-			width: 250px;
+			width: 310px;
 		}
 		li>h2{
 			border-bottom: 2px solid #ccc;
 			padding-bottom:5px;
 		}
-		.unvisiable{
-			opacity:0;
+		.ct{
+			position: absolute;
+     		transition: all 1s;
+			width: 1280px;
+			left:;
 		}
-		.clearfix{
-			content:"";
-			display: block;
-			clear:both;
+		.wrap{
+			position:relative;
+			width: 1280px;
+			margin:10px auto;
+			padding: 0 auto;
+		}
+		.unvisiable{
+			visibility: hidden;
+			height: 20px;
+		}
+		.hidden{
+			display: none;
+		}
+		.item{
+			margin:20px;
 		}
 	</style>
 </head>
 <body>
-	<div>
-		<input class="ipt" type="text" placeholder="input image keyword">
-	</div>
-	
+	<div class="wrap">
 	<ul class="ct clearfix" >
-		<li>
-			<a href="#">
-				<img src="http://n.sinaimg.cn//tech//transform//20171123//CCjL-fypathz5216829.jpg" alt="">
+		<li class="item hidden">
+<!-- 			<a href="#">
+				<img src="http://n.sinaimg.cn//tech//transform//20171123//CCjL-fypathz5216829.jpg">
 			</a>
 			<h2>哇哈哈我是</h2>
-			<p>tingshuobushiangdadger</p>
+			<p>tingshuobushiangdadger</p> -->
 		</li>
 	</ul>
+	</div>
 
 	<div class="unvisiable">你当我透明</div>
 	<script>
-	var xhr = new XMLHttpRequest()
-	xhr.open("get","http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4")
-	xhr.send()
-	xhr.onload(){
 
+
+	var clock 
+	var curPage = 1
+	var	perPageCount = 9
+	var col = []
+	var colValue = parseInt($(".ct").width()/$(".item").outerWidth(true))
+
+	for(var i =0;i < colValue;i++){
+			col[i] = 0
+		}
+	
+	start()
+
+	$(window).on("scroll",function(){
+		if(clock){
+			clearTimeout(clock)
+		}
+		clock = setTimeout(function(){
+			if(isShow($(".unvisiable"))){
+				start()
+				console.log("1")
+			}
+		},500)
+	})
+
+	function start(){
+		getData(function(newsList){
+			var arr = []
+			var count = 0
+			$.each(newsList,function(idx,news){
+				var $node = getNodes(news)
+				$node.find("img").load(function(){
+					$(".ct").append($node)
+					arr.push($node)
+					count ++
+					if(count >= newsList.length){
+						waterFall(arr)
+					}
+				})
+			})
+		})
+	}
+	
+
+	function waterFall($node){
+
+		$.each($node,function(){
+			var minValue = Math.min.apply(null,col)
+			var colIndex = col.indexOf(minValue)
+
+			$(this).css({
+				top:minValue,
+				left:colIndex * $(this).outerWidth(true),
+				opacity:1
+			})
+			console.log(minValue,colIndex)
+			col[colIndex] += $(this).outerHeight(true);
+		})
+		
+		$(".wrap").height(Math.max.apply(null,col))
+	}
+
+	
+	function getNodes(news){
+		var node = "<li class='item'>"
+		node += "<a href='" + news.url + "'>"
+		node += "<img src='" + news.img_url + "'>"
+		node += "</a>"
+		node += "<h2>" + news.short_name + "</h2>"
+		node += "<p>" + news. short_intro +"</p>"
+		node += "</li>"
+		return $(node)
+	}
+
+	function getData(callback){
+		$.ajax({
+			url:"http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4",
+			dataType:"jsonp",
+			jsonp:"jsoncallback",
+			data:{
+				app_key:"1271687855",
+				num:perPageCount,
+				page:curPage
+			}
+		}).done(function(ret){
+			if(ret && ret.status && ret.status.code == "0"){
+				callback(ret.data)
+				curPage ++
+			}else{
+				console.log("err")
+			}
+		})
+	}
+
+	function isShow($node) {
+	  var scrollTop = $(window).scrollTop()
+	  var height = $(window).height()
+	  var offset = $node.offset().top
+	  console.log(scrollTop,height,offset)
+
+
+	  if(offset < scrollTop + height) {
+	    return true
+	  }else{
+	    return false
+	  }
 	}
 
 	</script>

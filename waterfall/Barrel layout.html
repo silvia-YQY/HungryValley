@@ -26,7 +26,7 @@
 			opacity:0;
 		}
 		.img-row{
-		  	margin-bottom:10px;
+		  	margin-bottom:20px;
 		}
 		.img-row img{
 			margin:0 10px;
@@ -40,7 +40,10 @@
 		<input class="ipt" type="text" placeholder="input image keyword">
 	</div>
 	
-	<div class = "ct <!-- clearfix -->">
+	<div class = "ct">
+		<!-- <div class="img-row">
+			<img src="" alt="">
+		</div> -->
 
 	</div>
 
@@ -71,29 +74,29 @@
 			imgInfo.newHeight = baseHeight
 			imgInfo.newWidth = baseHeight*(imgInfo.webformatWidth/imgInfo.webformatHeight)
 
-			if(imgInfo.newWidth + rowTotalWidth > mainNodeWidth ){
+			if(imgInfo.newWidth + rowTotalWidth + rowList.length > mainNodeWidth * 20 ){
+				console.log(rowList.length)
 				layout(rowList,rowTotalWidth)
 				rowList = [imgInfo]
 				rowTotalWidth = imgInfo.newWidth
 			}else{
 				rowList.push(imgInfo)
-				rowTotalWidth += imgInfo.newWidth +20
+				rowTotalWidth += imgInfo.newWidth
 			}
 		})	
 	}
 
 	function layout(list,rowTotalWidth){
 
-		var $divrow = $("<div class='img-row'></div>")
+		var $imgbox = $("<div class='img-box'></div>")
 
 		list.forEach(function(imgInfo){
 			
 			var $img = $("<img>")
 			$img.attr("src",imgInfo.webformatURL)
-			$divrow.append($img)
+			$imgbox.append($img)
 			
 			var newHeight = (mainNodeWidth/rowTotalWidth)*baseHeight
-
 			$img.css({
 				height:newHeight,
 				width:(imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight
@@ -101,7 +104,7 @@
 			console.log( newHeight , (imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight)
 		})
 		
-		$mainNode.append($divrow)
+		$mainNode.append($imgbox)
 		
 	}
 
