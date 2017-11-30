@@ -4,6 +4,10 @@
 	<meta charset="utf-8">
 	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
 	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
 		.input{
 			margin:20px auto;
 			text-align: center;
@@ -13,23 +17,22 @@
 			border-radius: 5px;
 			padding: 5px;
 		}
+		.ct{
+			width:1480px;
+			margin:0 auto;
+			border:1px solid;
+		}
 		.unvisiable{
 			opacity:0;
 		}
-		.clearfix{
-			content:"";
-			display: block;
-			clear:both;
+		.img-row{
+		  	margin-bottom:10px;
 		}
-		.ct{
-			margin:auto;
-			width: 1480px;
-			border:1px solid;
-			float: left;
+		.img-row img{
+			margin:10px 10px;
+			border-radius:10px;
 		}
-		.ct>.img{
-			margin: 10px;
-		}
+
 	</style>
 </head>
 <body>
@@ -37,11 +40,11 @@
 		<input class="ipt" type="text" placeholder="input image keyword">
 	</div>
 	
-	<div class = "ct clearfix">
+	<div class = "ct <!-- clearfix -->">
 
 	</div>
 
-	<div class="unvisiable">你当我透明</div>
+	<!-- <div class="unvisiable">你当我透明</div> -->
 	<script>
 
 	var $mainNode = $(".ct")
@@ -49,16 +52,16 @@
 	console.log(mainNodeWidth)
 	var rowList = []        // 每一列能放入的的图片
 	var rowTotalWidth = 0   //每一列的总宽度
-	var baseHeight = 200
+	var baseHeight = 300
 
-	$(".ipt").change(function(){
+	// $(".ipt").change(function(){
 		getData()
 			.then(setImg)
 			.catch(function(err){
 				console.log(err)
 			})
 
-	})
+	// })
 
 	function setImg(res){
 
@@ -68,7 +71,7 @@
 			imgInfo.newHeight = baseHeight
 			imgInfo.newWidth = baseHeight*(imgInfo.webformatWidth/imgInfo.webformatHeight)
 
-			if(imgInfo.newWidth + rowTotalWidth > mainNodeWidth){
+			if(imgInfo.newWidth + rowTotalWidth > mainNodeWidth ){
 				layout(rowList,rowTotalWidth)
 				rowList = [imgInfo]
 				rowTotalWidth = imgInfo.newWidth
@@ -76,29 +79,32 @@
 				rowList.push(imgInfo)
 				rowTotalWidth += imgInfo.newWidth
 			}
-		})
-
-		function layout(list,rowTotalWidth){
-
-			list.forEach(function(imgInfo){
-				var $div = $("<div class='img'></div>")
-				var $img = $("<img>")
-				$img.attr("src",imgInfo.webformatURL)
-				$div.append($img)
-				var newHeight = (mainNodeWidth/rowTotalWidth)*baseHeight
-				$div.css({
-					height:newHeight,
-					width:(imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight
-				})
-				console.log("height" + (mainNodeWidth/rowTotalWidth)*baseHeight)
-
-				$mainNode.append($div)
-			})
-		}
+		})	
 	}
 
+	function layout(list,rowTotalWidth){
 
+		var $divrow = $("<div class='img-row'></div>")
 
+		list.forEach(function(imgInfo){
+			
+			var $img = $("<img>")
+			$img.attr("src",imgInfo.webformatURL)
+			$divrow.append($img)
+			
+			var newHeight = (mainNodeWidth/rowTotalWidth)*baseHeight
+
+			$img.css({
+				height:newHeight,
+				width:(imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight
+			})
+			console.log( newHeight , (imgInfo.webformatWidth/imgInfo.webformatHeight)*newHeight)
+		})
+
+		
+		$mainNode.append($divrow)
+		
+	}
 
 	function getData(){
 		return new Promise(function(resolve,reject){
@@ -106,9 +112,9 @@
 			var keyword = $(".ipt").val()
 			var data = {
 				key:"7186209-05e5f68629a2c2eac9db960fc",
-				q:keyword,
+				q:"dog",
 				image_type:"photo",
-				per_page:50
+				per_page:20
 			}	
 
 			var url = "https://pixabay.com/api/?"
@@ -132,39 +138,6 @@
 		})
 	}
 
-
-
-
-/*
-	function getData(callback){
-
-		$(".ipt").change(function(){
-			var keyword = $(".ipt").val()
-			var data = {
-				key:"7186209-05e5f68629a2c2eac9db960fc",
-				q:keyword,
-				image_type:"photo",
-				per_page:20
-			}	
-
-			var url = "https://pixabay.com/api/?"
-
-			for(var key in data){
-				url += key + "=" + data[key] + "&"
-			}
-
-			$.ajax({
-				url:url,
-				type:"get",
-				dataType:"json",
-				success:function(res){
-					callback(res)
-				}
-			})
-		})
-
-	}
-*/
 	</script>
 </body>
 </html>
