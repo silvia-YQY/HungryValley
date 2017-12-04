@@ -18,19 +18,20 @@
 			padding: 5px;
 		}
 		.ct{
-			width:1280px;
+			width:1200px;
 			margin:0 auto;
-			/*border: 1px solid;*/
 		}
 		.img-row{
-			/*float: left;*/
-			margin:10px;
+			float: left;
+			margin-bottom:10px;
+
 		}
 		.img-row>img{
+			/*padding-left: 10px;*/
 			border-radius:10px;
+
 		}
 		.row-box{
-			margin:0 -40px;
 			display: flex;
 			justify-content:space-between;
 		}
@@ -108,7 +109,6 @@
 				img.newWidth = _this.baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
 				console.log(_this.$ctWidth)
 				if(img.newWidth + _this.rowTotalWidth > _this.$ctWidth){
-					console.log(_this.rowTotalWidth)
 					_this.rander(_this.rowList,_this.rowTotalWidth)
 					_this.rowList = [img]
 					_this.rowTotalWidth = img.newWidth
@@ -134,9 +134,9 @@
 					height:falImgHeigh,
 					width:falImgHeigh*(img.newWidth/ _this.baseHeight)
 				})
-				$rowbox.css({
-					width: _this.$ctWidth
-				})
+				// $rowbox.css({
+				// 	width: _this.$ctWidth
+				// })
 				$rowbox.append(img)
 				 _this.$ct.append($rowbox)
 			})
