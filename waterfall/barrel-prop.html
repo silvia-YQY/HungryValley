@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.input{
+			margin:20px auto;
+			text-align: center;
+		}
+		input{
+			height: 25px;
+			border-radius: 5px;
+			padding: 5px;
+		}
+		.ct{
+			width:1280px;
+			margin:0 auto;
+			border: 1px solid;
+		}
+		.img-row{
+			/*float: left;*/
+			margin:10px;
+		}
+		.img-row>img{
+			border-radius:10px;
+		}
+		.row-box{
+			margin:0 -40px;
+			display: flex;
+			justify-content:space-between;
+		}
+		.clearfix:after{
+			content:"";
+			display: block;
+			clear:both;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="input">
+		<input class="ipt" type="text" placeholder="input image keyword">
+	</div>
+	
+	<div class = "ct">
+		<!-- <div class="img-row">
+			<img src="" alt="">
+		</div> -->
+
+	</div>
+
+	<!-- <div class="unvisiable">你当我透明</div> -->
+	<script>
+
+	function Barrel(node,num,baseHeight){
+		this.$ct = node;
+		this.$ctWidth = node.width()
+		this.num = num;
+		this.baseHeight = baseHeight
+		this.rowTotalWidth = 0
+		this.rowList = []
+		this.getImg(this.num);
+		
+	}
+
+	Barrel.prototype = {
+
+		getImg:function(num){
+			var _this = this;
+			var imgInfo = []
+			for(var i = 0;i < num; i++){
+				var randomx = 
+		parseInt(Math.random()*(800-100)+200);
+				var randomy = 
+		parseInt(Math.random()*(800-100)+200);
+				var url = "https://picsum.photos/"
+				url += randomx + "/" + randomy + "/?random"
+				var img={
+					url:url,
+					OriWidth:randomx,
+					OriHeight:randomy
+				}
+				imgInfo.push(img)
+
+			}
+			// return imgInfo
+			_this.getNode(imgInfo)
+		},
+
+		getNode:function(imgInfo){
+			var _this = this;
+			var $html = []
+			for(var i = 0;i < imgInfo.length; i++){
+				var div = "<div class='img-row'>"
+				div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
+				div += "</div>"
+				$html.push($(div))
+			}
+
+			$html.forEach(function(img,idx){
+
+				img.newHeight = _this.baseHeight
+				img.newWidth = _this.baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
+				console.log(_this.$ctWidth)
+				if(img.newWidth + _this.rowTotalWidth > _this.$ctWidth){
+					console.log(_this.rowTotalWidth)
+					_this.rander(_this.rowList,_this.rowTotalWidth)
+					_this.rowList = [img]
+					_this.rowTotalWidth = img.newWidth
+
+				}else{
+					_this.rowList.push(img)
+					_this.rowTotalWidth += img.newWidth
+				}
+				_this.rander(_this.rowList,_this.rowTotalWidth)
+			})	
+		},
+
+
+		rander:function(list,rowTotalWidth){
+			var _this = this;
+			var $rowbox = $("<div class ='row-box clearfix'></div> ")
+
+			list.forEach(function(img){
+
+				var falImgHeigh = (_this.$ctWidth/rowTotalWidth)* _this.baseHeight
+
+				img.find("img").css({
+					height:falImgHeigh,
+					width:falImgHeigh*(img.newWidth/ _this.baseHeight)
+				})
+				$rowbox.css({
+					width: _this.$ctWidth
+				})
+				$rowbox.append(img)
+				 _this.$ct.append($rowbox)
+			})
+		}
+
+	}
+
+	var barrel = new Barrel($(".ct"),20,200)
+	</script>
+</body>
+</html>

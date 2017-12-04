@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script src="//code.jquery.com/jquery-1.9.1.min.js"></script>
+	<style>
+		*{
+			padding: 0;
+			margin: 0;
+		}
+		.input{
+			margin:20px auto;
+			text-align: center;
+		}
+		input{
+			height: 25px;
+			border-radius: 5px;
+			padding: 5px;
+		}
+		.ct{
+			width:1280px;
+			margin:0 auto;
+		}
+		.img-row{
+			/*float: left;*/
+			margin:10px;
+		}
+		.img-row>img{
+			border-radius:10px;
+		}
+		.row-box{
+			display: flex;
+			justify-content:space-between;
+		}
+		.clearfix:after{
+			content:"";
+			display: block;
+			clear:both;
+		}
+
+	</style>
+</head>
+<body>
+	<div class="input">
+		<input class="ipt" type="text" placeholder="input image keyword">
+	</div>
+	
+	<div class = "ct">
+		<!-- <div class="img-row">
+			<img src="" alt="">
+		</div> -->
+
+	</div>
+
+	<!-- <div class="unvisiable">你当我透明</div> -->
+	<script>
+	
+	var $ct = $(".ct")
+	var $ctWidth = $ct.width()       //容器宽度  
+	var rowList = []   //每行能放入的图片
+	var rowTotalWidth = 0  //每行的宽度
+	var baseHeight = 200   //假设原始宽度为200
+	console.log($ctWidth)
+
+	getImg()
+
+
+	//从HTML数组中渲染放入页面
+	function rander(list,rowTotalWidth){
+		var $rowbox = $("<div class ='row-box clearfix'></div> ")
+
+		list.forEach(function(img){
+
+			var falImgHeigh = ($ctWidth/rowTotalWidth)*baseHeight
+
+			img.find("img").css({
+				height:falImgHeigh,
+				width:falImgHeigh*(img.newWidth/baseHeight)
+			})
+			$rowbox.css({
+				width:$ctWidth
+			})
+			//console.log(falImgHeigh*(img.newWidth/baseHeight))
+
+			//console.log("高"+falImgHeigh,"宽"+falImgHeigh*(img.newWidth/baseHeight))
+			//console.log(img)
+			$rowbox.append(img)
+			$ct.append($rowbox)
+		})
+		
+	}
+
+	//组建HTML结构，放入数组
+	function getNode(imgInfo){
+		var $html = []
+		for(var i = 0;i < imgInfo.length; i++){
+			var div = "<div class='img-row'>"
+			div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
+			div += "</div>"
+			$html.push($(div))
+		}
+
+		$html.forEach(function(img,idx){
+
+			img.newHeight = baseHeight
+			img.newWidth = baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
+
+			if(img.newWidth + rowTotalWidth > $ctWidth){
+				rander(rowList,rowTotalWidth)
+				rowList = [img]
+				rowTotalWidth = img.newWidth
+			}else{
+				rowList.push(img)
+				rowTotalWidth += img.newWidth
+			}
+			rander(rowList,rowTotalWidth)
+		})	
+	}
+
+
+	//获取img地址，放入数组
+	function getImg(){
+		var imgInfo = []
+		for(var i = 0;i < 20; i++){
+			var randomx = 
+	parseInt(Math.random()*(800-100)+200);
+			var randomy = 
+	parseInt(Math.random()*(800-100)+200);
+			var url = "https://picsum.photos/"
+			url += randomx + "/" + randomy + "/?random"
+			var img={
+				url:url,
+				OriWidth:randomx,
+				OriHeight:randomy
+			}
+			imgInfo.push(img)
+		}
+		getNode(imgInfo)
+	}
+
+	</script>
+</body>
+</html>
