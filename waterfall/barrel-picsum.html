@@ -22,15 +22,16 @@
 			margin:0 auto;
 		}
 		.img-row{
-			/*float: left;*/
-			margin:10px;
+			padding:10px;
 		}
 		.img-row>img{
+			width: 100%;
+			height: 100%;
 			border-radius:10px;
 		}
 		.row-box{
 			display: flex;
-			justify-content:space-between;
+			/*justify-content:space-between;*/
 		}
 		.clearfix:after{
 			content:"";
@@ -51,8 +52,6 @@
 		</div> -->
 
 	</div>
-
-	<!-- <div class="unvisiable">你当我透明</div> -->
 	<script>
 	
 	var $ct = $(".ct")
@@ -70,20 +69,16 @@
 		var $rowbox = $("<div class ='row-box clearfix'></div> ")
 
 		list.forEach(function(img){
-
+			console.log(img)
 			var falImgHeigh = ($ctWidth/rowTotalWidth)*baseHeight
 
-			img.find("img").css({
+			img.css({
 				height:falImgHeigh,
 				width:falImgHeigh*(img.newWidth/baseHeight)
 			})
 			$rowbox.css({
 				width:$ctWidth
 			})
-			//console.log(falImgHeigh*(img.newWidth/baseHeight))
-
-			//console.log("高"+falImgHeigh,"宽"+falImgHeigh*(img.newWidth/baseHeight))
-			//console.log(img)
 			$rowbox.append(img)
 			$ct.append($rowbox)
 		})
@@ -93,6 +88,7 @@
 	//组建HTML结构，放入数组
 	function getNode(imgInfo){
 		var $html = []
+
 		for(var i = 0;i < imgInfo.length; i++){
 			var div = "<div class='img-row'>"
 			div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
