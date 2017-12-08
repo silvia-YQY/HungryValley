@@ -18,8 +18,9 @@
 			padding: 5px;
 		}
 		.ct{
-			width:1280px;
-			margin:0 auto;
+/*			width:1280px;*/
+			margin:0 100px;
+
 		}
 		.img-row{
 			padding:10px;
@@ -28,10 +29,10 @@
 			width: 100%;
 			height: 100%;
 			border-radius:10px;
+			transition: all 1s;
 		}
 		.row-box{
 			display: flex;
-			/*justify-content:space-between;*/
 		}
 		.clearfix:after{
 			content:"";
@@ -53,86 +54,101 @@
 
 	</div>
 	<script>
-	
-	var $ct = $(".ct")
-	var $ctWidth = $ct.width()       //容器宽度  
-	var rowList = []   //每行能放入的图片
-	var rowTotalWidth = 0  //每行的宽度
-	var baseHeight = 200   //假设原始宽度为200
-	console.log($ctWidth)
 
-	getImg()
+	function Picsum($ct){
+		this.$ct = $ct ;
+		this.$ctWidth = $ct.width() ;      //容器宽度  
+		this.rowList = [] ;  //每行能放入的图片
+		this.rowTotalWidth = 0 ; //每行的宽度
+		this.baseHeight = 200;   //假设原始宽度为200
+		this.imgInfo = [];
+		this.url ;
+		this.$html = [];
+		this.randomx;
+		this.randomy;
+		this.img={};
+		this.getImg()
 
+	}
 
-	//从HTML数组中渲染放入页面
-	function rander(list,rowTotalWidth){
-		var $rowbox = $("<div class ='row-box clearfix'></div> ")
+	Picsum.prototype = {
 
-		list.forEach(function(img){
-			console.log(img)
-			var falImgHeigh = ($ctWidth/rowTotalWidth)*baseHeight
+		//从HTML数组中渲染放入页面
+		rander:	function(list,rowTotalWidth){
+			var _this = this
+			var $rowbox = $("<div class ='row-box clearfix'></div> ")
 
-			img.css({
-				height:falImgHeigh,
-				width:falImgHeigh*(img.newWidth/baseHeight)
+			list.forEach(function(img){
+				var falImgHeigh = (_this.$ctWidth/_this.rowTotalWidth)*_this.baseHeight
+
+				img.css({
+					height:falImgHeigh,
+					width:falImgHeigh*(img.newWidth/_this.baseHeight)
+				})
+				$rowbox.css({
+					width:_this.$ctWidth
+				})
+				$rowbox.append(img)
+				_this.$ct.append($rowbox)
 			})
-			$rowbox.css({
-				width:$ctWidth
-			})
-			$rowbox.append(img)
-			$ct.append($rowbox)
-		})
 		
-	}
+		},
 
-	//组建HTML结构，放入数组
-	function getNode(imgInfo){
-		var $html = []
+		//组建HTML结构，放入数组
+		getNode:function (imgInfo){
+			var _this = this
+			
+			for(var i = 0;i < imgInfo.length; i++){
+				var div = "<div class='img-row'>"
+				div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
+				div += "</div>"
+				 _this.$html.push($(div))
+			}
+			
+			_this.$html.forEach(function(img,idx){
+				
+				img.newHeight =  _this.baseHeight
+				img.newWidth =  _this.baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
 
-		for(var i = 0;i < imgInfo.length; i++){
-			var div = "<div class='img-row'>"
-			div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
-			div += "</div>"
-			$html.push($(div))
+				if(img.newWidth +  _this.rowTotalWidth >  _this.$ctWidth){
+					_this.rander( _this.rowList, _this.rowTotalWidth)
+					 _this.rowList = [img]
+					 _this.rowTotalWidth = img.newWidth
+				}else{
+					 _this.rowList.push(img)
+					 _this.rowTotalWidth += img.newWidth
+				}
+				 _this.rander( _this.rowList, _this.rowTotalWidth)
+
+			})	
+		},
+
+		//获取img地址，放入数组
+		getImg:function (){
+			
+			for(var i = 0;i < 20; i++){
+				this.randomx = 
+		parseInt(Math.random()*(800-100)+200);
+				this.randomy = 
+		parseInt(Math.random()*(800-100)+200);
+				
+				this.url = "https://picsum.photos/" + this.randomx + "/" + this.randomy + "/?random"
+				this.img = {
+					url:this.url,
+					OriWidth:this.randomx,
+					OriHeight:this.randomy
+				}
+				this.imgInfo.push(this.img)
+			}
+			
+			this.getNode(this.imgInfo)
+
 		}
 
-		$html.forEach(function(img,idx){
-
-			img.newHeight = baseHeight
-			img.newWidth = baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
-
-			if(img.newWidth + rowTotalWidth > $ctWidth){
-				rander(rowList,rowTotalWidth)
-				rowList = [img]
-				rowTotalWidth = img.newWidth
-			}else{
-				rowList.push(img)
-				rowTotalWidth += img.newWidth
-			}
-			rander(rowList,rowTotalWidth)
-		})	
 	}
 
-
-	//获取img地址，放入数组
-	function getImg(){
-		var imgInfo = []
-		for(var i = 0;i < 20; i++){
-			var randomx = 
-	parseInt(Math.random()*(800-100)+200);
-			var randomy = 
-	parseInt(Math.random()*(800-100)+200);
-			var url = "https://picsum.photos/"
-			url += randomx + "/" + randomy + "/?random"
-			var img={
-				url:url,
-				OriWidth:randomx,
-				OriHeight:randomy
-			}
-			imgInfo.push(img)
-		}
-		getNode(imgInfo)
-	}
+	var p = new Picsum($(".ct"))
+	
 
 	</script>
 </body>
