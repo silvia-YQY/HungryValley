@@ -63,113 +63,129 @@
 	<div class="unvisiable">你当我透明</div>
 	<script>
 
+	function waterfallNew(){
+		this.init()
+	}
 
-	var clock 
-	var curPage = 1
-	var	perPageCount = 9
-	var col = []
-	var colValue = parseInt($(".ct").width()/$(".item").outerWidth(true))
+	waterfallNew.prototype = {
 
-	for(var i =0;i < colValue;i++){
-			col[i] = 0
-		}
-	
-	start()
+		init:function(){
+			var _this = this
+			this.clock 
+			this.curPage = 1
+			this.perPageCount = 9
+			this.col = []
+			this.colValue = parseInt($(".ct").width()/$(".item").outerWidth(true))
 
-	$(window).on("scroll",function(){
-		if(clock){
-			clearTimeout(clock)
-		}
-		clock = setTimeout(function(){
-			if(isShow($(".unvisiable"))){
-				start()
-				console.log("1")
-			}
-		},500)
-	})
+			for(var i =0;i < this.colValue;i++){
+					this.col[i] = 0
+				}
+			
+			this.start()
 
-	function start(){
-		getData(function(newsList){
-			var arr = []
-			var count = 0
-			$.each(newsList,function(idx,news){
-				var $node = getNodes(news)
-				$node.find("img").load(function(){
-					$(".ct").append($node)
-					arr.push($node)
-					count ++
-					if(count >= newsList.length){
-						waterFall(arr)
+			$(window).on("scroll",function(){
+				if(_this.clock){
+					clearTimeout(_this.clock)
+				}
+				_this.clock = setTimeout(function(){
+					if(_this.isShow($(".unvisiable"))){
+						_this.start()
+						console.log("1")
 					}
+				},500)
+			})
+		},
+
+		start:function(){
+			var _this = this
+			this.getData(function(newsList){
+				var arr = []
+				var count = 0
+				$.each(newsList,function(idx,news){
+					var $node = _this.getNodes(news)
+					$node.find("img").load(function(){
+						$(".ct").append($node)
+						arr.push($node)
+						count ++
+						if(count >= newsList.length){
+							_this.waterFall(arr)
+						}
+					})
 				})
 			})
-		})
-	}
-	
+		},
 
-	function waterFall($node){
+		waterFall:function($node){
+			var _this = this
+			$.each($node,function(){
+				var minValue = Math.min.apply(null,_this.col)
+				var colIndex = _this.col.indexOf(minValue)
 
-		$.each($node,function(){
-			var minValue = Math.min.apply(null,col)
-			var colIndex = col.indexOf(minValue)
-
-			$(this).css({
-				top:minValue,
-				left:colIndex * $(this).outerWidth(true),
-				opacity:1
+				$(this).css({
+					top:minValue,
+					left:colIndex * $(this).outerWidth(true),
+					opacity:1
+				})
+				console.log(minValue,colIndex)
+				_this.col[colIndex] += $(this).outerHeight(true);
 			})
-			console.log(minValue,colIndex)
-			col[colIndex] += $(this).outerHeight(true);
-		})
 		
-		$(".wrap").height(Math.max.apply(null,col))
-	}
+		$(".wrap").height(Math.max.apply(null,_this.col))
 
-	
-	function getNodes(news){
-		var node = "<li class='item'>"
-		node += "<a href='" + news.url + "'>"
-		node += "<img src='" + news.img_url + "'>"
-		node += "</a>"
-		node += "<h2>" + news.short_name + "</h2>"
-		node += "<p>" + news. short_intro +"</p>"
-		node += "</li>"
-		return $(node)
-	}
+		},
 
-	function getData(callback){
-		$.ajax({
-			url:"http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4",
-			dataType:"jsonp",
-			jsonp:"jsoncallback",
-			data:{
-				app_key:"1271687855",
-				num:perPageCount,
-				page:curPage
-			}
-		}).done(function(ret){
-			if(ret && ret.status && ret.status.code == "0"){
-				callback(ret.data)
-				curPage ++
+		getNodes:function(news){
+			var node = "<li class='item'>"
+			node += "<a href='" + news.url + "'>"
+			node += "<img src='" + news.img_url + "'>"
+			node += "</a>"
+			node += "<h2>" + news.short_name + "</h2>"
+			node += "<p>" + news. short_intro +"</p>"
+			node += "</li>"
+			return $(node)
+
+		},
+
+		getData:function(callback){
+			$.ajax({
+				url:"http://platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4",
+				dataType:"jsonp",
+				jsonp:"jsoncallback",
+				data:{
+					app_key:"1271687855",
+					num:this.perPageCount,
+					page:this.curPage
+				}
+			}).done(function(ret){
+				if(ret && ret.status && ret.status.code == "0"){
+					callback(ret.data)
+					this.urPage ++
+				}else{
+					console.log("err")
+				}
+			})
+		},
+		isShow:function($node){
+			var scrollTop = $(window).scrollTop()
+			var height = $(window).height()
+			var offset = $node.offset().top
+			console.log(scrollTop,height,offset)
+
+			if(offset < scrollTop + height) {
+				return true
 			}else{
-				console.log("err")
+				return false
 			}
-		})
+
+		}
+
 	}
 
-	function isShow($node) {
-	  var scrollTop = $(window).scrollTop()
-	  var height = $(window).height()
-	  var offset = $node.offset().top
-	  console.log(scrollTop,height,offset)
 
+	$(document).ready(function() { 
+		new waterfallNew()
+	}); 
 
-	  if(offset < scrollTop + height) {
-	    return true
-	  }else{
-	    return false
-	  }
-	}
 
 	</script>
 
