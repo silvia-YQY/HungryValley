@@ -56,35 +56,51 @@
 	<script>
 
 	function Picsum($ct){
-		this.$ct = $ct ;
-		this.$ctWidth = $ct.width() ;      //容器宽度  
-		this.rowList = [] ;  //每行能放入的图片
-		this.rowTotalWidth = 0 ; //每行的宽度
-		this.baseHeight = 200;   //假设原始宽度为200
-		this.imgInfo = [];
-		this.url ;
-		this.$html = [];
-		this.randomx;
-		this.randomy;
-		this.img={};
-		this.getImg()
-
+		this.$ct = $ct 
+		this.init()
+		this.bind()
 	}
 
 	Picsum.prototype = {
+			//定义参数
+		init:function(){
+			this.$ctWidth = this.$ct.width() ;      //容器宽度  
+			this.rowList = [] ;  //每行能放入的图片
+			this.rowTotalWidth = 0 ; //每行的宽度
+			this.baseHeight = 200;   //假设原始宽度为200
+			this.imgInfo = [];
+			this.url ;
+			this.$html = [];
+			this.randomx;
+			this.randomy;
+			this.img={};
+		},
+		//绑定函数
+		bind:function(){
+			this.getImg()
+		},
 
 		//从HTML数组中渲染放入页面
-		rander:	function(list,rowTotalWidth){
+		rander:	function(list,rowTotalWidth,Heigth){
 			var _this = this
 			var $rowbox = $("<div class ='row-box clearfix'></div> ")
 
 			list.forEach(function(img){
-				var falImgHeigh = (_this.$ctWidth/_this.rowTotalWidth)*_this.baseHeight
 
-				img.css({
-					height:falImgHeigh,
-					width:falImgHeigh*(img.newWidth/_this.baseHeight)
-				})
+				var falImgHeigh = (_this.$ctWidth/_this.rowTotalWidth)*_this.baseHeight
+				if(Heigth){
+					console.log(Heigth)
+					img.css({
+						height:Heigth,
+						width:Heigth*(img.newWidth/_this.baseHeight)
+					})
+				}else{
+					img.css({
+						height:falImgHeigh,
+						width:falImgHeigh*(img.newWidth/_this.baseHeight)
+					})
+				}
+
 				$rowbox.css({
 					width:_this.$ctWidth
 				})
@@ -111,16 +127,20 @@
 				img.newWidth =  _this.baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
 
 				if(img.newWidth +  _this.rowTotalWidth >  _this.$ctWidth){
+					console.log(_this.rowList)
 					_this.rander( _this.rowList, _this.rowTotalWidth)
-					 _this.rowList = [img]
-					 _this.rowTotalWidth = img.newWidth
+					_this.rowList = [img]
+					_this.rowTotalWidth = img.newWidth
+
 				}else{
 					 _this.rowList.push(img)
 					 _this.rowTotalWidth += img.newWidth
 				}
-				 _this.rander( _this.rowList, _this.rowTotalWidth)
-
 			})	
+			console.log(_this.rowList)
+			_this.rander( _this.rowList, _this.rowTotalWidth,200)
+			_this.rowList = []
+			_this.rowTotalWidth = 0
 		},
 
 		//获取img地址，放入数组
@@ -148,6 +168,17 @@
 	}
 
 	var p = new Picsum($(".ct"))
+	var clock
+	$(window).scroll(function(){
+		
+		if(clock){
+			clearTimeout(clock)
+		}
+		clock = setTimeout(function(){
+			p = new Picsum($(".ct"))
+		},300)
+		
+	})
 	
 
 	</script>
