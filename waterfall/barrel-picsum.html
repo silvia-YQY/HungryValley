@@ -183,7 +183,7 @@
 		return {
 			init:function($ct,callback){
 
-				new Picsum($ct,callback)
+				new Picsum($ct,callback())
 
 				var clock
 				$(window).scroll(function(){
@@ -199,10 +199,9 @@
 							var windowHeight = $(window).height()
 							var offsetTop = $check.offset().top
 							if( offsetTop > scrollTop && offsetTop < scrollTop + windowHeight){
-								return new Picsum($(".ct"),callback)
+								return new Picsum($(".ct"),callback())
 							}
 								return false
-	
 						}); 
 						
 					},300)
