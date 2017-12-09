@@ -79,20 +79,60 @@
 			</ul>
 		</div>
 	</div>
+
+
+	<div class="ct">
+		<ul class="tab">
+			<li class="active cover">tab1</li>
+			<li>tab2</li>
+			<li>tab3</li>
+		</ul>
+		<div class="wrap">
+			<ul class="content">
+				<li class="active">content1</li>
+				<li>content2</li>
+				<li>content3</li>
+			</ul>
+		</div>
+	</div>
 	<script>
 
-	$(".tab>li").on("click",function(){
-		var $this = $(this)
-		var idx = $this.index()
-		var contentW = $(".content>li").width()
-		$this.addClass("cover").siblings().removeClass("cover")
-		$this.parents(".ct")
-			 .find(".content")
-			 .animate({left:-(contentW*idx)})
+	
 
-	})
+	function Tab($ct){
+		this.$ct = $ct
+		this.click()
+	}
+//this.$ct.find
+	Tab.prototype={
 
+		click:function(){
+			$(".tab>li").on("click",function(){
+				var $this = $(this)
+				var idx = $this.index()
+				var contentW = $(".content>li").width()
+				$this.addClass("cover").siblings().removeClass("cover")
+				$this.parents(".ct")
+					 .find(".content")
+					 .animate({left:-(contentW*idx)})
 
+			})
+		}
+		
+	}
+
+	_Tab =(function(){
+
+		return {
+			init:function(){
+				new Tab($(".ct"))
+			}
+		}
+	})()
+
+	_Tab.init()
+
+	
 
 	</script>
 </body>
