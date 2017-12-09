@@ -39,6 +39,9 @@
 			display: block;
 			clear:both;
 		}
+		.check{
+			visibility:hidden;
+		}
 
 	</style>
 </head>
@@ -53,138 +56,166 @@
 		</div> -->
 
 	</div>
+	<div class="check">你当我透明</div>
 	<script>
 
-	function Picsum($ct){
-		this.$ct = $ct 
-		this.init()
-		this.bind()
-	}
 
-	Picsum.prototype = {
-			//定义参数
-		init:function(){
-			this.$ctWidth = this.$ct.width() ;      //容器宽度  
-			this.rowList = [] ;  //每行能放入的图片
-			this.rowTotalWidth = 0 ; //每行的宽度
-			this.baseHeight = 200;   //假设原始宽度为200
-			this.imgInfo = [];
-			this.url ;
-			this.$html = [];
-			this.randomx;
-			this.randomy;
-			this.img={};
-		},
-		//绑定函数
-		bind:function(){
-			this.getImg()
-		},
 
-		//从HTML数组中渲染放入页面
-		rander:	function(list,rowTotalWidth,Heigth){
-			var _this = this
-			var $rowbox = $("<div class ='row-box clearfix'></div> ")
+	//var p = new Picsum($(".ct"))
+	
 
-			list.forEach(function(img){
+	Picsum5 = (function(){
 
-				var falImgHeigh = (_this.$ctWidth/_this.rowTotalWidth)*_this.baseHeight
-				if(Heigth){
-					console.log(Heigth)
-					img.css({
-						height:Heigth,
-						width:Heigth*(img.newWidth/_this.baseHeight)
+		function Picsum($ct){
+			this.$ct = $ct 
+			this.init()
+			this.bind()
+		}
+
+		Picsum.prototype = {
+				//定义参数
+			init:function(){
+				this.$ctWidth = this.$ct.width() ;      //容器宽度  
+				this.rowList = [] ;  //每行能放入的图片
+				this.rowTotalWidth = 0 ; //每行的宽度
+				this.baseHeight = 200;   //假设原始宽度为200
+				this.imgInfo = [];
+				this.url ;
+				this.$html = [];
+				this.randomx;
+				this.randomy;
+				this.img={};
+				
+			},
+			//绑定函数
+			bind:function(){
+				this.getImg()
+			},
+
+			//从HTML数组中渲染放入页面
+			rander:	function(list,rowTotalWidth,Heigth){
+				var _this = this
+				var $rowbox = $("<div class ='row-box clearfix'></div> ")
+
+				list.forEach(function(img){
+
+					var falImgHeigh = (_this.$ctWidth/_this.rowTotalWidth)*_this.baseHeight
+					if(Heigth){
+						console.log(Heigth)
+						img.css({
+							height:Heigth,
+							width:Heigth*(img.newWidth/_this.baseHeight)
+						})
+					}else{
+						img.css({
+							height:falImgHeigh,
+							width:falImgHeigh*(img.newWidth/_this.baseHeight)
+						})
+					}
+
+					$rowbox.css({
+						width:_this.$ctWidth
 					})
-				}else{
-					img.css({
-						height:falImgHeigh,
-						width:falImgHeigh*(img.newWidth/_this.baseHeight)
-					})
-				}
-
-				$rowbox.css({
-					width:_this.$ctWidth
+					$rowbox.append(img)
+					_this.$ct.append($rowbox)
 				})
-				$rowbox.append(img)
-				_this.$ct.append($rowbox)
-			})
-		
-		},
+			
+			},
 
-		//组建HTML结构，放入数组
-		getNode:function (imgInfo){
-			var _this = this
-			
-			for(var i = 0;i < imgInfo.length; i++){
-				var div = "<div class='img-row'>"
-				div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
-				div += "</div>"
-				 _this.$html.push($(div))
-			}
-			
-			_this.$html.forEach(function(img,idx){
+			//组建HTML结构，放入数组
+			getNode:function (imgInfo){
+				var _this = this
 				
-				img.newHeight =  _this.baseHeight
-				img.newWidth =  _this.baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
-
-				if(img.newWidth +  _this.rowTotalWidth >  _this.$ctWidth){
-					console.log(_this.rowList)
-					_this.rander( _this.rowList, _this.rowTotalWidth)
-					_this.rowList = [img]
-					_this.rowTotalWidth = img.newWidth
-
-				}else{
-					 _this.rowList.push(img)
-					 _this.rowTotalWidth += img.newWidth
+				for(var i = 0;i < imgInfo.length; i++){
+					var div = "<div class='img-row'>"
+					div += "<img class='item' src='"  + imgInfo[i].url +  "'>"
+					div += "</div>"
+					 _this.$html.push($(div))
 				}
-			})	
-			console.log(_this.rowList)
-			_this.rander( _this.rowList, _this.rowTotalWidth,200)
-			_this.rowList = []
-			_this.rowTotalWidth = 0
-		},
-
-		//获取img地址，放入数组
-		getImg:function (){
-			
-			for(var i = 0;i < 20; i++){
-				this.randomx = 
-		parseInt(Math.random()*(800-100)+200);
-				this.randomy = 
-		parseInt(Math.random()*(800-100)+200);
 				
-				this.url = "https://picsum.photos/" + this.randomx + "/" + this.randomy + "/?random"
-				this.img = {
-					url:this.url,
-					OriWidth:this.randomx,
-					OriHeight:this.randomy
+				_this.$html.forEach(function(img,idx){
+					
+					img.newHeight =  _this.baseHeight
+					img.newWidth =  _this.baseHeight*(imgInfo[idx].OriWidth/imgInfo[idx].OriHeight)
+
+					if(img.newWidth +  _this.rowTotalWidth >  _this.$ctWidth){
+						console.log(_this.rowList)
+						_this.rander( _this.rowList, _this.rowTotalWidth)
+						_this.rowList = [img]
+						_this.rowTotalWidth = img.newWidth
+
+					}else{
+						 _this.rowList.push(img)
+						 _this.rowTotalWidth += img.newWidth
+					}
+				})	
+				console.log(_this.rowList)
+				_this.rander( _this.rowList, _this.rowTotalWidth,200)
+				_this.rowList = []
+				_this.rowTotalWidth = 0
+			},
+
+			//获取img地址，放入数组
+			getImg:function (){
+				
+				for(var i = 0;i < 20; i++){
+					this.randomx = 
+			parseInt(Math.random()*(800-100)+200);
+					this.randomy = 
+			parseInt(Math.random()*(800-100)+200);
+					
+					this.url = "https://picsum.photos/" + this.randomx + "/" + this.randomy + "/?random"
+					this.img = {
+						url:this.url,
+						OriWidth:this.randomx,
+						OriHeight:this.randomy
+					}
+					this.imgInfo.push(this.img)
 				}
-				this.imgInfo.push(this.img)
+				
+				this.getNode(this.imgInfo)
+
 			}
-			
-			this.getNode(this.imgInfo)
+
 
 		}
 
-	}
+		return {
+			init:function($ct,callback){
 
-	var p = new Picsum($(".ct"))
-	var clock
-	$(window).scroll(function(){
-		
-		if(clock){
-			clearTimeout(clock)
+				new Picsum($ct,callback)
+
+				var clock
+				$(window).scroll(function(){
+					
+					if(clock){
+						clearTimeout(clock)
+					}
+					clock = setTimeout(function(){
+						$(document).ready(function() {
+
+						 	var $check = $(".check")
+							var scrollTop = $(window).scrollTop()
+							var windowHeight = $(window).height()
+							var offsetTop = $check.offset().top
+							if( offsetTop > scrollTop && offsetTop < scrollTop + windowHeight){
+								return new Picsum($(".ct"),callback)
+							}
+								return false
+	
+						}); 
+						
+					},300)
+					
+				})
+			}
 		}
-		clock = setTimeout(function(){
-			$(document).ready(function() { 
-				p = new Picsum($(".ct"))
-			}); 
-			
-		},300)
+	})()
+
+	Picsum5.init($(".ct"),function(){
+		console.log("9999");
 		
 	})
-
-	
-	
 
 
 
