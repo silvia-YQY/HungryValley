@@ -20,7 +20,10 @@ _waterfallNew = (function(){
 			
 			this.start()
             $(".more").on("click",function(){
+            	
+            	console.log("curPage:" + _this.curPage)
                 _this.start()
+                
             })
             
 		},
@@ -70,6 +73,7 @@ _waterfallNew = (function(){
 			return $(node)
 		},
 		getData:function(callback){
+			var _this = this
 			$.ajax({
 				url:"//platform.sina.com.cn/slide/album_tech?jsoncallback=func&app_key=1271687855&num=3&page=4",
 				dataType:"jsonp",
@@ -82,7 +86,7 @@ _waterfallNew = (function(){
 			}).done(function(ret){
 				if(ret && ret.status && ret.status.code == "0"){
 					callback(ret.data)
-					this.urPage ++
+					_this.curPage++
 				}else{
 					console.log("err")
 				}
