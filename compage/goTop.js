@@ -8,6 +8,7 @@ _GoTop = (function(){
 
 	goTop.prototype = {
 		bind:function(){
+
 			$(window).on("scroll",function(){
 
 				var scrollTop = $(window).scrollTop()
@@ -21,25 +22,29 @@ _GoTop = (function(){
 					}
 					if(scrollTop<500){
 						$(".goTopSet").removeClass("SetActive")
-						console.log("1")
+						console.log("55")
 					}
 
 				},300)
 			})
 
 			$(".goTopSet").on("click",function(){
+				console.log("goto!!!!!!!")
 				$('bodu,html')
 				.animate({ 
 					scrollTop: 0
 				}, 1000);
 				console.log("chengong")
+
 			})
+
 		}
 	}
 
 	return{
 		init:function($ct){
 			new goTop($ct)
+
 		}
 	}
 

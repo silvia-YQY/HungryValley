@@ -97,6 +97,7 @@
     		init:function($ct){
     			$ct.each(function(idx,target){
     				new Carousel($(target))
+    				console.log("carousel!!!!!!")
     			})
     		}
     	}
