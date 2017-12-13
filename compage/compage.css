@@ -1,0 +1,549 @@
+*{
+	padding:0;
+	margin:0;
+}
+@font-face {
+  font-family: 'iconfont';  /* project id 445154 */
+  src: url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.eot');
+  src: url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.woff') format('woff'),
+  url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_445154_213urgxugmnrvn29.svg#iconfont') format('svg');
+}
+.person {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+#layout{
+	min-width:1280px;
+	/*border:1px solid #000;*/
+}
+.clearfix:after{
+	content:"";
+	display: block;
+	clear:both;
+}
+
+/*第一部分*/
+#header{
+	height:800px;
+}
+.nav{
+	width: 100%;
+	position:absolute;
+	display: flex; 
+	justify-content: space-between;
+}
+.nav>p{
+	color:#fed136;
+	width: 250px;
+	font-size: 30px;
+	font-weight:bold;
+}
+.nav>ul{
+	list-style: none;
+	display: flex;
+	align-items:center;
+}
+.nav>ul>li>a{
+	font-size: 20px;
+	color:#fff;
+	margin:auto 20px;
+	text-decoration: none;
+
+}
+
+/*轮播start*/
+.carousel{
+	position: absolute;
+	float: left;
+	width: 100%;
+	height: 800px;
+	overflow: hidden;
+}
+.carousel>ul>li>a>img{
+	height: 800px;
+	width:1423px;
+}
+.carousel>.img-ct{
+  position: absolute;
+  font-size: 0;
+  padding: 0;
+  margin:0;
+  width:100%;
+}
+.carousel .img-ct>li{
+  display: inline-block;
+  list-style: none;
+  width:1423px;
+}
+.carousel>a{
+  position: absolute;
+  top:50%;
+  margin-top:-25px;
+  width: 50px;
+  height: 50px;
+  border-radius:50%;
+  border: 1px solid #000;
+  color:#000;
+  z-index: 1;
+  line-height: 50px;
+  text-align: center;
+  font-size: 30px;
+  text-decoration: none;
+}
+.carousel>a:hover{
+  opacity: 0.7;
+}
+.carousel .pre{
+  left: 20px;
+}
+.carousel .next{
+  right: 20px;
+}
+.link{
+  position: absolute;
+  width:100%;
+  bottom: 20px;
+  font-size: 0;
+  text-align: center;
+}
+.link>li{   
+  display: inline-block;
+  width: 100px;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.active{
+  background: #ccc;
+}
+/*轮播end*/
+#header{
+	/*background-image: url(http://book.jirengu.com/jirengu-inc/jrg-tehui/homework/%E8%8B%A5%E6%84%9A/16/img/header-bg.jpg);*/
+	text-align: center;
+	color:#fff;
+}
+.content{
+	position: absolute;
+	top:150px;
+	width: 100%;
+}
+.content>p{
+	font-style:italic;
+	font-size: 40px;
+	line-height: 40px;
+	margin:0;
+	text-transform:Capitalize; 
+}
+
+.content>h1{
+	font-size: 75px;
+	line-height: 75px;
+	margin:25px;
+}
+
+.content>a{
+	display: inline-block;
+	background: #fed136;
+	padding:20px 40px;
+	border-radius:7px;
+	text-decoration: none;
+	color:#fff;
+	font-size: 18px;
+	font-weight: bold;
+	margin-top:80px;
+}
+/*第一部分*/
+/*第二部分*/
+#services{
+	padding:100px 0;
+}
+#services h1{
+	font-size: 40px;
+	text-align: center;
+}
+#services>p{
+	font-size: 16px;
+	color:#777;
+	font-style:italic;
+	text-align: center;
+}
+#services ul{
+	list-style: none;
+	display: flex;
+	margin:80px 0;
+	padding:0 50px ;
+}
+#services ul li{
+	margin:0 30px;
+}
+#services ul li>div{
+    position:relative;
+    font-size: 100px;
+	width: 150px;
+	height: 150px;
+    background:#fed136;
+	border-radius: 75px;
+    padding:auto;
+    margin:0 auto;
+}
+#services ul li>div>p{
+    position:relative;
+    top:25px;
+}
+#services ul li>div>p:nth-child(1){
+    text-align:center;
+	margin:30px auto;
+}
+#services ul li>p{
+	text-align: center;
+}
+#services ul li>p:nth-child(3){
+	color:#777;
+	font-size: 14px;
+}
+#services ul li>p:nth-child(2){
+	font-weight: bold;
+	font-size: 18px;
+	margin-top:30px;
+}
+
+/*第二部分*/
+/*第三部分*/
+#portfolio{
+	background:#f7f7f7;
+	padding:100px 0;
+	text-align: center;
+}
+#portfolio h1{
+	font-size: 40px;
+}
+#portfolio>p{
+	color:#777;
+	font-size: 16px;
+	font-style:italic;
+}
+/*ajax获取新闻start*/
+*{
+	padding: 0;
+	margin:0;
+}
+.item{
+	list-style: none;
+	position: absolute;
+	border: 1px solid #ccc;
+	padding: 20px;
+	width:310px;
+	
+}
+li>a>img{
+	width: 310px;
+}
+li>h2{
+	border-bottom: 2px solid #ccc;
+	padding-bottom:5px;
+}
+.ct{
+	position: absolute;
+	transition: all 1s;
+	width: 1280px;
+	margin:10px auto;
+	
+}
+.wrap{
+	position:relative;
+	width: 1280px;
+	margin:10px auto;
+	padding: 0 auto;
+}
+.hidden{
+	display: none;
+}
+.item{
+	margin:20px;
+}
+.more{
+	margin:0 auto;
+	margin-top:100px;
+	background-color:#fed136;
+	width:100px;
+	height:100px;
+	line-height:100px;
+	text-align:center;
+	border-radius:50%;
+	border: 7px solid #f1f1f1;
+	cursor:pointer;
+}
+/*ajax获取新闻end*/
+/*第三部分*/
+
+/*第四部分*/
+#about{
+	padding:100px 0;
+	margin-bottom: 200px;
+	text-align: center;
+}
+#about h1{
+	font-size:40px;
+	font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#about>p{
+	font-size: 16px;
+	font-style: italic;
+	color:#777;
+}
+#about ul{
+	margin:0 auto;
+	padding:0;
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+}
+#about ul>li>img{
+	width: 170px;
+	height: 170px;
+	border:7px solid #f1f1f1;
+	border-radius:50%; 
+}
+.timeline{
+	max-width:1140px;
+	margin:0 auto;
+}
+.timeline>li{
+	position: relative;
+	margin:50px 0;
+}
+.word>h3{
+	font-size:18px;
+	line-height:1.1;
+	padding:0;
+	margin-bottom: 10px;
+}
+.word>p{
+	color:#777;
+	font-size:14px;
+}
+
+.timeline>li>.word{
+	position: absolute;
+	text-align:left;
+	right:0;
+	top:0;
+	width: 25em;
+	margin:0 50px;
+}
+.timeline>li:nth-child(odd)>.word{
+	text-align:right;
+	left:0;
+}
+.timeline>li::after{
+	content:"";
+	display: block;
+	position: absolute;
+	left:50%;
+	height: 100%;
+	border-left:3px solid #f1f1f1;
+}
+.timeline>li:last-child .word{
+	width: 170px;
+	height: 170px;
+	border:7px solid #f1f1f1;
+	border-radius:50%; 
+	background: #fed136;
+	position: absolute;
+	left:430px;
+
+}
+.timeline>li:last-child .word h3{
+	text-align: center;
+	display: block;
+	margin:65px 30px;
+	font-size: 18px;
+	color:#fff;
+}
+/*第四部分*/
+/*第五部分*/
+#team{
+	background: #f7f7f7;
+	text-align:center;
+	padding:100px;
+}
+#team>h3{
+	font-size:40px;
+	margin:15px auto;
+}
+#team>p{
+	color:#777;
+	font-size:16px;
+	font-style: italic;
+	margin-bottom: 50px;
+}
+#team ul{
+	display: flex;
+	justify-content: space-around;
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+#team>ul>li>img{
+	width:240px;
+	border:7px solid #fff;
+	border-radius:50%;
+}
+#team>ul>li>h3{
+	font-size:18px;
+	margin:0;
+	margin-top:20px;
+}
+#team>ul>li>p{
+	font-size: 14px;
+	color:#777;
+	margin:0;
+}
+#team>p:nth-of-type(2){
+	font-size: 14px;
+	width:750px;
+	color:#777;
+	margin:50px auto;
+}
+#team .person>li>ul>li{
+    margin-top:20px;
+}
+#team .person>li>ul>li>a{
+    text-decoration: none;
+    color:#000;
+    font-size:40px;
+  
+}
+/*第五部分*/
+/*第六部分	*/
+#brand{
+	display: flex;
+	margin:0 150px;
+	justify-content: space-around;
+}
+#brand img{
+	margin:50px 0;
+}
+
+
+/*第六部分	*/
+
+/*第七部分*/
+#contace{
+	text-align: center;
+	background-image: url(http://book.jirengu.com/jirengu-inc/jrg-tehui/homework/%E8%8B%A5%E6%84%9A/16/img/map-image.png);
+	background-color:#222;
+	color:#fff;
+	padding:100px;
+}
+#contace>h3{
+	font-size:40px;
+	margin:15px auto;
+}
+#contace>p{
+	font-size: 18px;
+	color:#777;
+	margin:20px 10px;
+	font-style: italic;
+}
+#contace .row{
+	display: flex;
+	justify-content: space-around;
+}
+#contace .row .massage{
+	display: flex;
+	flex:1.9;
+	margin:20px 10px;	
+	flex-direction: column;
+}
+#contace .row .text{
+	margin:20px 0;
+	flex:2;
+}
+#contace .row .massage>input{
+	padding:20px;
+	margin:20px 10px;
+	border-radius: 10px;
+	line-height: 2
+}
+#contace .row .text>textarea{
+	padding:10px;
+	margin:20px;
+	border-radius: 10px;
+	line-height: 2;
+	border:5px solid #fff;
+}
+#contace>a{
+	padding:20px 40px;
+	background-color: #fed136;
+	color:#fff;
+	text-decoration: none;
+	border-radius:5px;
+	font-size: 18px;
+	font-weight: bold;
+}
+::-webkit-input-placeholder{
+	font-size:14px;
+	color:#999;
+	font-weight: bold;
+	letter-spacing: 3px;
+}
+/*第七部分*/
+/*gotop  start*/
+.goTopSet{
+	position: fixed;
+	bottom: 50px;
+	right: 50px;
+	margin:0 auto;
+	margin-top:100px;
+	background-color:#fed136;
+	width:100px;
+	height:100px;
+	line-height:100px;
+	text-align:center;
+	border-radius:50%;
+	border: 7px solid #f1f1f1;
+	cursor:pointer;
+	display: none;
+}
+.SetActive{
+	display: block;
+}
+/*gotop  end*/
+/*footer*/
+footer{
+	display: flex;
+	align-items: center;
+	margin:25px;
+	justify-content: space-around;
+}
+footer>p{
+	font-size: 14px;
+}
+footer>ul{
+	display: flex;
+	list-style: none;
+}
+footer>div>{
+	padding:25px 0;
+}
+footer>div>a{
+	text-decoration: none;
+	align-items: center;
+	color:#fed136;
+	font-size: 14px;
+	margin:0 20px;
+}
+footer>ul>li>a{
+    color:#000;
+    font-size:40px;
+    margin:auto 20px;
+    text-decoration: none;
+}
