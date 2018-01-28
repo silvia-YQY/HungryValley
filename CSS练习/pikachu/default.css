@@ -1,0 +1,41 @@
+/* 320像素 */
+*{margin:0;padding:0;box-sizing:border-box;}
+*::after{box-sizing:border-box;}
+*::before{box-sizing:border-box;}
+body{
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+}
+.code-wrapper{
+    flex:1;
+    height: 50%;
+    padding:10px;
+}
+.preview-wrapper{
+    height: 50%;
+    flex:1;
+}
+#code{
+    overflow: hidden;
+    height: 100%;
+    font-size: 16px;
+}
+.actions{
+    position: absolute;
+    top:0;
+    right:0;
+    display: flex;
+    flex-direction: column;
+}
+.actions>button{
+    margin:5px;
+    padding: 5px;
+    background: #ccc;
+}
+.actions>button.active{
+    box-shadow: 3px 4px 3px rgba(0,0,0,0.8)
+}
+.actions>button:focus{
+    outline: none;
+}
