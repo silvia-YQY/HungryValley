@@ -82,50 +82,66 @@ body {
 	border: 1px solid;
 }
 .header {
-	margin: 50px 0px;
+	margin:5px 0px;
 	display: flex;
 	align-items:center;
 	justify-content: space-between;
 }
-.portrait img {
+/* .portrait img {
 	width: 200px;
 	height: 200px;
 	margin:0 100px;
 	border-radius: 100px;
-}
+} */
 
 .job {
 	position: relative;
-	left:-100px;
+	left:100px;
 }
 .job h1 {
 	font-size: 50px;
+	margin:20px 0;
 }
 .job em {
-	font-size: 22px;
+	font-size: 25px;
+	font:bolder;
 }
+.job> .detail{
+	list-style: none;
+	font-size: 20px;
+	position: relative;
+	left:-50px;
+}
+.job> .detail li{
+	margin:10px;
+}
+
 .contact {
-	margin-right:80px;
-	width: 400px;
+	margin-right:100px;
+	width: 500px;
 }
 .contact h1 {
+	font-size: 50px;
 	border-bottom:10px solid #000;
 }
 .contact ul {
 	list-style: none;
-    padding:0 20px;
+  padding:0 20px;
 }
 .icon li {
 	margin:15px 0;
 }
 .icon li a {
 	color:#000;
-	font-size: 18px;
+	font-size: 22px;
 	text-decoration: none;
 }
 
 .content {
 	margin:30px;
+}
+.content P{
+	font-size: 23px;
 }
 
 .content h1 {
@@ -136,15 +152,16 @@ body {
 }
 .content ul li h3 em{
 	color:#999;
-	font-size: 20px;
+	font-size: 25px;
 	margin:0 20px;
 }
 .content ul{
-	margin:50px 20px;
+	margin:20px;
 	border-left:3px solid #ccc;
 }
 .icon1 h3{
   font-size:25px;
+	margin:0;
 }
 .icon1 h3:before{
   margin:-15px;
@@ -191,6 +208,7 @@ body {
 }
 .icon3 h3{
   font-size:25px;
+	
 }
 .icon3 h3:before{
   margin:-15px;
@@ -264,52 +282,64 @@ body {
 <body>
 	<div class="layout">
 		<div class="header">
-			<div class="portrait">
+			<!-- <div class="portrait">
 				<img src="http://wx3.sinaimg.cn/mw690/6df59c32ly1fkl1q4uaqij20hs0hmaes.jpg" alt="">
-			</div>
+			</div> -->
 			<div class="job">
-				<h1>Silvia Yuan</h1>
-				<em>Front-end Web Developer</em>
+				<h1>苑倩仪</h1>
+				<em>职位意向：前端开发</em>
+				<ul class="detail">
+					<li>性别：女</li>
+					<li>年龄：23</li>
+					<li>学历：本科</li>
+					<li>英语水平：大学英语四级</li>
+				</ul>
 			</div>
 			<div class="contact">
 				<h1>CONTACTS</h1>
 				<ul class="icon">
-					<li><a href="#">545067ooo@qq.com</a></li>
-					<li><a href="#">15814812ooo</a></li>
+					<li><a href="#">545067444@qq.com</a></li>
+					<li><a href="#">15814812040</a></li>
 					<li><a href="#">https://github.com/silvia-YQY</a></li>
-					<li><a href="#">Guangzhou Guangdong China</a></li>
+					<li><a href="#">广州市白云区</a></li>
 					<li><a href="#"></a></li>
 				</ul>
 			</div>
 		</div>
 		<div class="content">
 			<div class="con1">
-				<h1>WORK EXPERIENCE</h1>
+				<h1>项目经验</h1>
 				<ul class="icon1">
 					<li>
-						<h3>Last Stop before Quantum<em>2017-2018</em></h3>
-						<p>Here at Mozilla, we’re extremely excited about next month’s release of Firefox Quantum, with massive speed improvements, a brand new UI, and many Developer Tools upgrades -- available now in Developer Edition. But last week's general release of Firefox 56 features good news for developers now - including "headless mode" </p>
+						<h3>QQ Music移动端<em>原生JS实现</em></h3>
+						<p>QQ 音乐移动端单页应用页面，包括推荐页、排行榜页以及搜索页的实现，在搜索音乐后点击单曲进行播放。
+							整个项目采用原生 JS 实现，采用 ES6/7 语法，CSS 方面使用 SCSS</p>
+							<p><em> 采用组件化的思想实现: Tab组件、轮播组件、播放器组件、歌词组件、进度条组件、搜索组件
+							数据通过伪造请求从官网抓取，实现与官网同步，通过 express 将数据传到前端进行展示</em></p>
+							<p> <b>技术栈： ES6 + Webpack + Sass + Express + Nodejs</b></p>
+
 					</li>
 					<li>
-						<h3>Last Stop before Quantum<em>2017-2018</em></h3>
-						<p>Here at Mozilla, we’re extremely excited about next month’s release of Firefox Quantum, with massive speed improvements, a brand new UI, and many Developer Tools upgrades -- available now in Developer Edition. But last week's general release of Firefox 56 features good news for developers now - including "headless mode" </p>
+						<h3>在线便利贴<em>基于NodeJS</em></h3>
+						<p>功能：github第三方登录、添加笔记（登录成功后）、删除笔记、修改笔记、使用 markdown、笔记拖拽</p>
+						<p><em>采用前后端分离思想：前端代码结构的组织、模块化开发方式、webpack 及loader和插件的使用、npm 的使用；<br>后端：网站后端架构、MVC概念、Express的使用、路由、中间件、sqlite3、nodejs 调试
+							<p> <b>技术栈： Node.js + webpack + express + sequelize + sass</b></p>
+						
+
 					</li>
 					<li>
-						<h3>Last Stop before Quantum<em>2017-2018</em></h3>
-						<p>Here at Mozilla, we’re extremely excited about next month’s release of Firefox Quantum, with massive speed improvements, a brand new UI, and many Developer Tools upgrades -- available now in Developer Edition. But last week's general release of Firefox 56 features good news for developers now - including "headless mode" </p>
+						<h3>画皮卡丘<em>纯CSS</em></h3>
+						<p>纯CSS画一只皮卡丘</p>
 					</li>
 				</ul>
 			</div>
 			<div class="con2">
-				<h1>EDUCATION</h1>
+				<h1>工作经验</h1>
 				<ul class="icon2">
 					<li>
-						<h3>Last Stop before Quantum<em>2017-2018</em></h3>
-						<p>Here at Mozilla, we’re extremely excited about next month’s release of Firefox Quantum, with massive speed improvements, a brand new UI, and many Developer Tools upgrades -- available now in Developer Edition. But last week's general release of Firefox 56 features good news for developers now - including "headless mode" </p>
-					</li>
-					<li>
-						<h3>Last Stop before Quantum<em>2017-2018</em></h3>
-						<p>Here at Mozilla, we’re extremely excited about next month’s release of Firefox Quantum, with massive speed improvements, a brand new UI, and many Developer Tools upgrades -- available now in Developer Edition. But last week's general release of Firefox 56 features good news for developers now - including "headless mode" </p>
+						<h3>上海金大师互联网金融信息服务有限公司广州分公司<em>2017.04-2018.03</em></h3>
+						<b>数据分析专员</b>
+						<p>主要负责推广部门数据收集统计；次要负责推广页面的PC端和移动端静态页面开发</p>
 					</li>
 				</ul>
 			</div>
@@ -317,7 +347,7 @@ body {
 		</div>
 		<div class="footer">
 			<div class="extra">
-				<h2>EXTRA CURRICULAR ACTIVITIES</h2>
+				<h2>技能说明</h2>
 				<ul class="icon3">
 					<li>
 						<h3>Last Stop before Quantum</h3>
@@ -333,11 +363,10 @@ body {
 				<h2>PROFESIONAL SKILLS</h2>
 				<ul class="icon4">
 					<li>HTML&CSS</li>
-					<li>JAVASCRIPT</li>
-					<li>SLIM    </li>
-					<li>JQUERY</li>
-					<li>PHOTOSHOP</li>
-					<li>ILLUSTRATOR</li>
+					<li>Vue.js</li>
+					<li>Jquery</li>
+					<li>ES6</li>
+					<li>Webpack</li>
 				</ul>
 			</div>
 		</div>
