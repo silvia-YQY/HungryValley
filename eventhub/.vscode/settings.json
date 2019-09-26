@@ -1,0 +1,43 @@
+{
+    "eslint.options": {
+        "configFile": "D:/math/.eslintrc.js"
+    },
+    "git.autofetch": true,
+    // tab 大小为4个空格
+    "editor.tabSize": 4,
+    // 100 列后换行
+    "editor.wordWrapColumn": 100,
+    // 保存时格式化
+    "editor.formatOnSave": false,
+    // 开启 vscode 文件路径导航
+    "breadcrumbs.enabled": true,
+    // 四个空格
+    "prettier.tabWidth": 4,
+    // prettier 设置语句末尾不加分号
+    "prettier.semi": false,
+    // prettier 设置强制单引号
+    "prettier.singleQuote": true,
+    // 显示 markdown 中英文切换时产生的特殊字符
+    "editor.renderControlCharacters": true,
+    // 设置 eslint 保存时自动修复
+    "eslint.autoFixOnSave": true,
+    // eslint 检测文件类型
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "html",
+            "autoFix": true
+        },
+        {
+            "language": "vue",
+            "autoFix": true
+        }
+    ],
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[json]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    }
+}
