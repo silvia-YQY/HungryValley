@@ -17,7 +17,7 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "css-loader": "^0.28.7",
-    "jquery": "^3.2.1",
+    "jquery": "^3.4.0",
     "style-loader": "^0.19.1"
   }
 }
